@@ -1,2 +1,0 @@
-//Example
-// javac src/main/java/TicTacToe/*.java -d classes
