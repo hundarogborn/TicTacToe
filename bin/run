@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Find the directory containing this script, so that executing the
+# script works as expected if the project directory isn't the CWD.
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+"$SCRIPT_DIR/build"
+if [ $? -ne 0 ]; then
+   exit 1
+fi
+
+java -jar $SCRIPT_DIR/../build/libs/TicTacToe.jar
