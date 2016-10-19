@@ -1,6 +1,9 @@
 # TicTacToe
 Late-term Assignment
 
+**Build status on master branch**  
+[![Build Status](https://travis-ci.org/hundarogborn/TicTacToe.svg?branch=master)](https://travis-ci.org/hundarogborn/TicTacToe)
+
 
 ## Purpose
 Learn to set up technical infrastructure to support agile development. The main challenge is to glue together the bits and pieces through the latter half of this class, into a coherent infrastructure.
