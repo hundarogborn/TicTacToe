@@ -1,6 +1,7 @@
 # TicTacToe
 Late-term Assignment
 
+**Build status on master branch**  
 [![Build Status](https://travis-ci.org/hundarogborn/TicTacToe.svg?branch=master)](https://travis-ci.org/hundarogborn/TicTacToe)
 
 
