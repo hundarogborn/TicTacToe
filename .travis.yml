@@ -1,1 +1,2 @@
-language: javascript: echo hello world
+language: java
+script: bin/build
