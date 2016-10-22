@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Find the directory containing this script, so that executing the
 # script works as expected if the project directory isn't the CWD.
@@ -10,14 +10,14 @@ function echoerr() {
 }
 
 echo "Building project..."
-$SCRIPT_DIR/../gradlew compileJava compileTestJava
+"$SCRIPT_DIR/../gradlew" compileJava compileTestJava
 if [ $? -ne 0 ]; then
     echoerr "Compilation failed; not running tests"
     exit 1;
 fi
 
 echo "Running tests..."
-$SCRIPT_DIR/../gradlew test
+"$SCRIPT_DIR/../gradlew" test
 if [ $? -ne 0 ]; then
     echoerr "Tests failed; not creating artifact"
     exit 1;
@@ -25,4 +25,4 @@ fi
 
 # Drop jar to build/libs
 echo "Assembling release..."
-$SCRIPT_DIR/../gradlew assemble
+"$SCRIPT_DIR/../gradlew" assemble
