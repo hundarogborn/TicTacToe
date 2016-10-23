@@ -14,9 +14,9 @@ public class Board {
 	
 	public void reset() {
 		this.moves = 0;
-		for (int x = 0; x < BOARD_SIZE; x++) {
-			for (int y = 0; y < BOARD_SIZE; y++) {
-				this.board[x][y] = 0;
+		for (int cellX = 0; cellX < BOARD_SIZE; cellX++) {
+			for (int cellY = 0; cellY < BOARD_SIZE; cellY++) {
+				this.board[cellX][cellY] = 0;
 			}
 		}
 	}
@@ -28,18 +28,18 @@ public class Board {
 		GAME_IN_PROGRESS,
 	}
 	
-	private void validCell(int x, int y) {
-		if (0 > x || x >= BOARD_SIZE)	throw new java.lang.IndexOutOfBoundsException("Illegal move");
-		if (0 > y || y >= BOARD_SIZE)	throw new java.lang.IndexOutOfBoundsException("Illegal move");		
+	private void validCell(int cellX, int cellY) {
+		if (0 > cellX || cellX >= BOARD_SIZE)		throw new java.lang.IndexOutOfBoundsException("Illegal move");
+		if (0 > cellY || cellY >= BOARD_SIZE)		throw new java.lang.IndexOutOfBoundsException("Illegal move");		
 	}
 	
-	private void validPlayer(int z) {
-		if (z < 0 || z >= MAX_PLAYERS)	throw new java.lang.IllegalArgumentException("Illegal player");
+	private void validPlayer(int player) {
+		if (player < 0 || player >= MAX_PLAYERS)	throw new java.lang.IllegalArgumentException("Illegal player");
 	}
 	
-	public int getCell(int x, int y) {
-		validCell(x, y);
-		return board[x][y];
+	public int getCell(int cellX, int cellY) {
+		validCell(cellX, cellY);
+		return board[cellX][cellY];
 	}
 	
 	public boolean makeMove(int cellX, int cellY, int player) {
