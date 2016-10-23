@@ -1,7 +1,9 @@
 package is.ru.tictactoe;
 
+import is.ru.tictactoe.webui.WebUI;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world");
+        WebUI webui = new WebUI(1234);
     }
 }
