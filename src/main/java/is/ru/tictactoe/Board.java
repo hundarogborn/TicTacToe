@@ -52,35 +52,32 @@ public class Board {
 		return false;
 	}
 	
-	public int winner() {
-		// return 1 for player 1
-		// return 2 for player 2
-		// return -1 for stale mate
-		// return 0 for no winner - not finished
-		
+	public GameResult winner() {
+		int player = 0;
+	
 		// Check horizontal and vertical
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			if (	board[i][0] != '0' &&
 					board[i][0] == board[i][1] &&
 					board[i][1] == board[i][2]) {
-				return board[i][0];
+				player = board[i][0];
 			}
-			if (	board[0][i] != '0' &&
+			else if (	board[0][i] != '0' &&
 					board[0][i] == board[1][i] &&
 					board[1][i] == board[2][i]) {
-				return board[0][i];
+				player = board[0][i];
 			}
 		}
 		
 		// Check special cases (crosses)
 		if (board[1][1] != 0) {
-			if ((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))  return board[1][1];
-			if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))  return board[1][1];
+			if ((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))  player = board[1][1];
+			if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))  player = board[1][1];
 		}
 		
-		// If no winner is found and 9 moves have been made game is a stale mate
-		if (moves > 8)	return -1;
-
-		return 0;
+		if (player == 1) 	return GameResult.PLAYER_1;
+		else if (player == 2)	return GameResult.PLAYER_2;
+		else if (moves > 8)	return GameResult.STALE_MATE;
+		else return GameResult.GAME_IN_PROGRESS;
 	}
 }
