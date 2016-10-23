@@ -16,7 +16,8 @@ All of them run within the same process; we do no RPC calls.
 
 # Presentation layer
 
-The presentation layer is implemented using Spark.
+The presentation layer is responsible for exposing the UI via HTTP.
+It's implemented using Spark and stores as little state as possible.
 It utilizes the Tic-Tac-Toe engine to do gameplay and
 the high-score persistence layer to view and save high-scores.
 
