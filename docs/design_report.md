@@ -5,8 +5,11 @@ Tic-Tac-Toe is a web application that allows a player to play
 Tic-Tac-Toe against a computer opponent.
 
 The application is composed of three major components:
+
 - The presentation layer
+
 - The Tic-Tac-Toe game engine
+
 - High-score persistence layer
 
 All of them run within the same process; we do no RPC calls.
