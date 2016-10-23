@@ -1,3 +1,9 @@
+plugins {
+    // Add the shadow plugin, so that we can create uberjar releases
+    // that package all their dependencies
+    id "com.github.johnrengelman.shadow" version "1.2.3"
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
