@@ -12,13 +12,20 @@ public class Board {
 		reset();
 	}
 	
-	private void reset() {
+	public void reset() {
 		this.moves = 0;
 		for (int x = 0; x < BOARD_SIZE; x++) {
 			for (int y = 0; y < BOARD_SIZE; y++) {
 				this.board[x][y] = 0;
 			}
 		}
+	}
+
+	public enum GameResult {
+		PLAYER_1,
+		PLAYER_2,
+		STALE_MATE,
+		GAME_IN_PROGRESS,
 	}
 	
 	private void validCell(int x, int y) {
@@ -30,21 +37,16 @@ public class Board {
 		if (z < 0 || z >= MAX_PLAYERS)	throw new java.lang.IllegalArgumentException("Illegal player");
 	}
 	
-	public boolean resetBoard() {
-		reset();
-		return true;
-	}
-
 	public int getCell(int x, int y) {
 		validCell(x, y);
 		return board[x][y];
 	}
 	
-	public boolean makeMove(int x, int y, int z) {
-		validCell(x,y);
-		validPlayer(z);
-		if (board[x][y] == 0) {
-			board[x][y] = z;
+	public boolean makeMove(int cellX, int cellY, int player) {
+		validCell(cellX, cellY);
+		validPlayer(player);
+		if (board[cellX][cellY] == 0) {
+			board[cellX][cellY] = player;
 			return true;
 		}
 		return false;
