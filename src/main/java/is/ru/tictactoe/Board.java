@@ -1,4 +1,4 @@
-package tictactoe.src.main.java.is.ru.tictactoe;
+package is.ru.tictactoe;
 
 public class Board {
 	

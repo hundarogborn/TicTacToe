@@ -1,10 +1,10 @@
-package tictactoe.src.test.java.is.ru.tictactoe;
+package is.ru.tictactoe;
 
 import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import tictactoe.src.main.java.is.ru.tictactoe.Board;
+import is.ru.tictactoe.Board;
 
 public class BoardTest {
 
