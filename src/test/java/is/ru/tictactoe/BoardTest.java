@@ -43,13 +43,6 @@ public class BoardTest {
 	}
 
 	@Test
-	public final void testResetBoard() {
-		System.out.println("Inside resetBoard()");
-		Assert.assertEquals(true, board.resetBoard());
-
-	}
-
-	@Test
 	public final void testGetCell() {
 		System.out.println("Inside getCell()");
         assertEquals(0, board.getCell(0,0));
