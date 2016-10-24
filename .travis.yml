@@ -1,5 +1,12 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 script: bin/build
-
+deploy:
+  provider: heroku
+  api_key:
+    secure: gRUT7odDbr7P3d90HbX9rsmVCji0S8NTtqxoSbYX/zHLsubDxTCI8FEk4xhMp49jntrdCTl9vz6fWQNkqRnfk13lFEVIHn/21+4SPFVCd4qcRyXDb6qjIki8jphL/26syHrZ8a1uwRD7TBn0DBl+Ms/IJFcIukDXE2HDnAolKpTFxiKsBI3K+Vw+0rx2CMR95ZlknZHPEQPRl8PfGCd8bGeuilt407GNhpFOqo9h+eVYXCEQpyVBNC17phRpKRcGfeGRFCo0B2c72WrkoF7M2zEjuN2oXR3FD69r9AnOsIbXHc2WCBimumsaWIX8zQYJ6GVmXFPuB0kbF2JPM7r8uXqctOSNclqKDWYI+2lpZZ31DsOgjDPyKuYU63QRDpKYC4d7hXMwq9e/u+sAeoLGir8tfLXisr7CsnWJjQL8bg7hWRtMsk72yI6HTV6ONyrbJQ9Bf7JrMNHD2VpxmZJGF5ANpJapK/FcRfp5mxf7APG55Onca63C95w4z6ZyNX6ZOAzlqnDXhb3ugochRiw8WtvMDQFpQSSHqYUt953vBNUD+nULlgrQel2JmEe0BchW6l71uH9r1TEHoTLwS9souH5l36AAVOYSo5VWAeVfqtAy+3SYeI/lSQYNQEhfPP0BYS4yEDFeGuhv0Xc4g0otYU2zBgKPWgFMqraNJkBz1Ic=
+  app: salty-woodland-44662
+  on:
+    repo: hundarogborn/TicTacToe
+    branch: master

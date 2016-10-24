@@ -8,7 +8,7 @@ import spark.Redirect;
 
 public class WebUI {
     public WebUI(int port) {
-        port(port);
+        port(getHerokuAssignedPort());
         setupRoutes();
     }
 
@@ -16,6 +16,16 @@ public class WebUI {
         get("/", WebUI::redirectToGoogle);
         
     }
+
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
     
     public static String redirectToGoogle(Request req, Response res) {
         res.redirect("https://www.google.is/#q=tic+tac+toe");
