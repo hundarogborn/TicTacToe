@@ -4,9 +4,4 @@
 # script works as expected if the project directory isn't the CWD.
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-"$SCRIPT_DIR/build"
-if [ $? -ne 0 ]; then
-   exit 1
-fi
-
-java -jar "$SCRIPT_DIR/../build/libs/TicTacToe.jar"
+"$SCRIPT_DIR/../gradlew" run
