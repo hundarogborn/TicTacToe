@@ -24,5 +24,6 @@ if [ $? -ne 0 ]; then
 fi
 
 # Drop jar to build/libs
-echo "Assembling release..."
-"$SCRIPT_DIR/../gradlew" assemble
+echo "Creating release jar..."
+"$SCRIPT_DIR/../gradlew" shadowJar
+
