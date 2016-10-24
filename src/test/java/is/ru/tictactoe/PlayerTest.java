@@ -8,8 +8,9 @@ import is.ru.tictactoe.Player;
 
 public class PlayerTest {
 
-	private Player player = new Player();
+	private Player player = new Player("TestUser");
 
 	@Test
 	public final void testPlayer() {
 	}
+}
