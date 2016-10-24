@@ -7,6 +7,9 @@ plugins {
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+// We want to use Java 8
+sourceCompatibility = 1.8
+
 // Apply the application plugin and set our main class
 apply plugin: 'application'
 mainClassName = 'is.ru.tictactoe.Main'
@@ -41,3 +44,6 @@ test {
         exceptionFormat = 'full'
     }
 }
+
+task stage(dependsOn: ['clean', 'shadowJar'])
+
