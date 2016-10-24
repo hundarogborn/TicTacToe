@@ -1,11 +1,14 @@
-plugins {
+//plugins {
     // Add the shadow plugin, so that we can create uberjar releases
     // that package all their dependencies
-    id "com.github.johnrengelman.shadow" version "1.2.3"
-}
+//    id "com.github.johnrengelman.shadow" version "1.2.3"
+//}
 
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
+
+// We want to use Java 8
+sourceCompatibility = 1.8
 
 // Apply the application plugin and set our main class
 apply plugin: 'application'
@@ -42,5 +45,19 @@ test {
     }
 }
 
-task stage(dependsOn: ['clean', 'shadowJar'])
+//task stage(dependsOn: ['clean', 'shadowJar'])
+
+// This task is needed by Heroku
+task stage {
+    dependsOn build
+}
+
+// This task copies dependencies that are pulled down from Maven
+// and copies into a directory specified in Procfile
+task copyToLib(type: Copy) {
+    into "$buildDir/libs"
+    from(configurations.compile)
+}
+stage.dependsOn(copyToLib)
+
 
