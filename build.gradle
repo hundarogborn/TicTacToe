@@ -41,3 +41,6 @@ test {
         exceptionFormat = 'full'
     }
 }
+
+task stage(dependsOn: ['clean', 'shadowJar'])
+
