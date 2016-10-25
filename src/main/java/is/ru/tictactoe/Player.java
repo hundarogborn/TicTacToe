@@ -2,7 +2,7 @@ package is.ru.tictactoe;
 
 public class Player {
 	
-	private String name;
+	public String name;
 	private int wins = 0;
 	private int losses = 0;
 	private int draws = 0;
