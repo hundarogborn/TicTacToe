@@ -8,7 +8,10 @@ import is.ru.tictactoe.Player;
 
 public class PlayerTest {
 
+	// for EmptyPlayer tests
 	private Player player = new Player();
+	
+	
 	private Player playerName = new Player("Player");
 
 	@Test
@@ -26,8 +29,32 @@ public class PlayerTest {
 	@Test
 	// get the name of the player
 	public final void testgetName(){
+		player.setName("Player2");
+		
 		System.out.println("Get the name of Player");
 		Assert.assertEquals("Player", playerName.getName());
+		
+		System.out.println("Get the name of Player2");
+		Assert.assertEquals("Player2", player.getName());
 
 	}
+	
+	@Test
+	// get set win, looses and draws of the player
+	public final void testgetResults(){
+		
+		
+		System.out.println("Set win to the Player");
+		Assert.assertEquals(1, player.addWin());
+		
+		System.out.println("Set draw to the Player");
+		Assert.assertEquals(1, player.addDraw());
+		
+		System.out.println("Set win to the Player");
+		Assert.assertEquals(1, player.addLoose());
+		
+
+	}
+	
+	
 }

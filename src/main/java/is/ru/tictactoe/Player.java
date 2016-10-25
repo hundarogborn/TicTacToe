@@ -9,7 +9,10 @@ public class Player {
 	
 	public Player(){}
 	
-	
+	public Player(String n) {
+		this.name = n;
+	}	
+		
 	public String getName(){
 		return this.name;
 	}
@@ -19,7 +22,16 @@ public class Player {
 		return true;
 	}
 	
-	public Player(String n) {
-		this.name = n;
+	public int addWin(){
+		return (++this.wins);
 	}
+
+	public int addDraw(){
+		return (++this.draws);
+	}
+
+	public int addLoose(){
+		return (++this.losses);
+	}	
+	
 }
