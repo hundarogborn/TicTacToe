@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import is.ru.tictactoe.Player;
+import java.is.ru.tictactoe.Player;
 
 public class PlayerTest {
 
@@ -14,8 +14,6 @@ public class PlayerTest {
 	@Test
 	//test empty constucter
 	public final void testPlayer() {
-		System.out.println("Check name of playerName"); 
-		Assert.assertEquals("Player", playerName.name());
 	}
 	
 	@Test
@@ -27,9 +25,9 @@ public class PlayerTest {
 	
 	@Test
 	// get the name of the player
-	public final void testsetName(){
+	public final void testgetName(){
 		System.out.println("Get the name of Player");
-		Assert.assertEquals("Player2", player.getName());
+		Assert.assertEquals("Player", playerName.getName());
 
 	}
 }

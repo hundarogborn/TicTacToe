@@ -9,16 +9,13 @@ public class Player {
 	
 	public Player(){}
 	
-	public Player(String n) {
-		this.name = n;
-	}
 	
 	public String getName(){
-		return Player.name;
+		return this.name;
 	}
 	
-	public bool setName(String name){
-		Player.name = name;
+	public boolean setName(String name){
+		this.name = name;
 		return true;
 	}
 	
