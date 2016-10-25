@@ -34,6 +34,48 @@ To run the application locally:
 $ bin/run
 ```
 
+# Submitting changes
+
+We use feature branches.  You are never, ever, ever, ever(!!!!) to push directly to master.
+
+The basic workflow is:
+1. Create a new feature branch
+   The naming convention for branches is:
+   - feat/integrate-foo-to-quux - For feature branches, implementing new functionality or improvements.
+   
+   - fix/fix-broken-thing-bar - For bugfixes, fixing already existing functionality
+   
+   - doc/document-quux - For documentation improvements
+   
+   We're not super strict on naming.  If you're doing something that doesn't exactly fit the above things,
+   do something else that feels correct.
+   
+2. Hack your good hack
+
+   - Write tests
+   
+   - Write clean code
+   
+   - Document your APIs
+
+3. Create a pull request
+
+   We have a template that's automatically filled out.  Answer the questions on:
+   
+   - What you are doing; from 10k feet
+   
+   - Why are you doing it.  What's the business value of the change?
+   
+   Skim over the 'Reviewer checklist' section and assure yourself that the review will be successful.  Remind
+   yourself that you will get the call if this breaks prod.
+   
+4. Find a member of our team and ask them to review.
+   You can also assign the issue to them if you're not in a hurry.
+   Don't be sad if you get criticism: it's what code reviews are for.
+   
+5. If all tests are green and the reviewer agrees to the change; merge the branch into master and then delete your branch.
+
+
 # Preparing releases
 
 To prepare a release, simply tag master and push the tag.
