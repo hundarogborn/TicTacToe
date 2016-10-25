@@ -24,7 +24,7 @@ $ git clone https://github.com/hundarogborn/TicTacToe.git
 
 # Building, testing and running the application
 
-To build the appliation and run the test suite:
+To build the application and run the test suite:
 ```shell
 $ bin/build 
 ```
