@@ -53,7 +53,16 @@ public class PlayerTest {
 		System.out.println("Set win to the Player");
 		Assert.assertEquals(1, player.addLoose());
 		
-
+		System.out.println("Get wins of the Player");
+		Assert.assertEquals(1, player.getWins());
+		
+		System.out.println("Get draws of the Player");
+		Assert.assertEquals(1, player.getDraws());
+		
+		System.out.println("Get wins of the Player");
+		Assert.assertEquals(1, player.getLooses());
+		
+		
 	}
 	
 	

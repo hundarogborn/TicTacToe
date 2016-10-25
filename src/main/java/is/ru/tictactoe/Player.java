@@ -34,4 +34,16 @@ public class Player {
 		return (++this.losses);
 	}	
 	
+	public int getWins(){
+		return (this.wins);
+	}
+
+	public int getDraws(){
+		return (this.draws);
+	}
+
+	public int getLooses(){
+		return (this.losses);
+	}
+	
 }
