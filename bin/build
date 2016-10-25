@@ -29,7 +29,6 @@ if [ $? -ne 0 ]; then
     echoerr "Code coverage tests failed - continue ..."
 fi
 
-
 # Drop jar to build/libs
 echo "Creating release jar..."
 "$SCRIPT_DIR/../gradlew" shadowJar

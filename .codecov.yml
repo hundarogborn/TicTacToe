@@ -1,3 +1,6 @@
+# Codecov defaults
+#
+
 codecov:
   notify:
     require_ci_to_pass: yes
