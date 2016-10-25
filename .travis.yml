@@ -1,7 +1,10 @@
 language: java
+sudo: false #faster builds
 jdk:
 - oraclejdk8
 script: bin/build
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
   provider: heroku
   api_key:
@@ -10,5 +13,3 @@ deploy:
   on:
     repo: hundarogborn/TicTacToe
     branch: master
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
