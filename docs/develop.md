@@ -38,7 +38,9 @@ $ bin/run
 We use feature branches.  You are never, ever, ever, ever(!!!!) to push directly to master.
 
 The basic workflow is:
+
 1. Create a new feature branch
+
    The naming convention for branches is:
    - feat/integrate-foo-to-quux - For feature branches, implementing new functionality or improvements.
    
@@ -69,7 +71,9 @@ The basic workflow is:
    yourself that you will get the call if this breaks prod.
    
 4. Find a member of our team and ask them to review.
+
    You can also assign the issue to them if you're not in a hurry.
+   
    Don't be sad if you get criticism: it's what code reviews are for.
    
 5. If all tests are green and the reviewer agrees to the change; merge the branch into master and then delete your branch.
