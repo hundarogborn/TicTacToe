@@ -19,7 +19,6 @@ Have a member of our team grant you access to our organization and clone the rep
 
 ```
 $ git clone https://github.com/hundarogborn/TicTacToe.git
-
 ```
 
 # Building, testing and running the application
