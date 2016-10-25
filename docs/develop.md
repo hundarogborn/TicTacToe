@@ -1,7 +1,7 @@
 Developing TicTacToe
 ====================
 
-# Required environment
+# Requirements
 
 All development is done in Java 1.8 (or greater) so SDK must be installed.
 [Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -32,6 +32,16 @@ To run the application locally:
 ```
 $ bin/run
 ```
+
+# CI
+
+We use [travis-ci](https://travis-ci.org/hundarogborn/TicTacToe) as our CI service.
+
+It builds and runs tests on every commit.
+Additionally, it deploys to our staging Heroku server for every master commit and pushes
+a release to Github for every tag.
+
+See .travis.yml for details.
 
 # Submitting changes
 
