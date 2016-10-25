@@ -19,4 +19,7 @@ public class Player {
 		return true;
 	}
 	
+	public Player(String n) {
+		this.name = n;
+	}
 }

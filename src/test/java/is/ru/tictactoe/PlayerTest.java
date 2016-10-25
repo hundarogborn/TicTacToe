@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.is.ru.tictactoe.Player;
+import is.ru.tictactoe.Player;
 
 public class PlayerTest {
 
