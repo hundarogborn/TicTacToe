@@ -35,6 +35,9 @@ $ bin/run
 
 # CI
 
+We use [codecov-io](https://codecov.io/gh/hundarogborn/TicTacToe) for code coverage.  It will
+automatically comment coverage reports on pull requests.
+
 We use [travis-ci](https://travis-ci.org/hundarogborn/TicTacToe) as our CI service.
 
 It builds and runs tests on every commit.
