@@ -30,5 +30,7 @@ public class PlayerTest {
 	public final void testsetName(){
 		System.out.println("Get the name of Player");
 		Assert.assertEquals("Player2", player.getName());
-	
+
+	}
 }
+
