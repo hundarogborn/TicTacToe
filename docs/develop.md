@@ -1,6 +1,27 @@
 Developing TicTacToe
 ====================
 
+# Required environment
+
+All development is done in Java 1.8 (or greater) so SDK must be installed.
+[Java 8 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+Git is used for source control. [Download Git](https://git-scm.com/downloads) - 
+[Git instructions in Icelandic](https://github.com/gaui/git)
+
+Gradle is used for build automation. [Download Gradle](https://gradle.org/gradle-download/) - 
+[Quick intro to Gradle](https://github.com/joningis/hugb_hello_world)
+
+
+# Setting up the local repository
+
+Have a member of our team grant you access to our organization and clone the repository:
+
+```
+$ git clone https://github.com/hundarogborn/TicTacToe.git
+
+```
+
 # Building, testing and running the application
 
 To build the appliation and run the test suite:
