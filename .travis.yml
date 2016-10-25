@@ -2,6 +2,8 @@ language: java
 jdk:
 - oraclejdk8
 script: bin/build
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
   # Deploy artifacts to github
   - provider: releases

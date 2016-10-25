@@ -7,6 +7,9 @@ plugins {
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
+// Use Jacoco for code coverage testing
+apply plugin: 'jacoco'
+
 // We want to use Java 8
 sourceCompatibility = 1.8
 
@@ -47,3 +50,15 @@ test {
 
 task stage(dependsOn: ['clean', 'shadowJar'])
 
+
+// Enable XML report
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/coverage"
+    }
+}
+
+// And run jacoco during check phase
+check.dependsOn jacocoTestReport

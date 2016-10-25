@@ -1,8 +1,10 @@
 # TicTacToe
 Late-term Assignment
 
-**Build status on master branch**  
+**Build status and code coverage**  
 [![Build Status](https://travis-ci.org/hundarogborn/TicTacToe.svg?branch=master)](https://travis-ci.org/hundarogborn/TicTacToe)
+[![codecov](https://codecov.io/gh/hundarogborn/TicTacToe/branch/master/graph/badge.svg)](https://codecov.io/gh/hundarogborn/TicTacToe)
+
 
 
 ## Purpose
