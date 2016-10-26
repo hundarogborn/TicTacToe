@@ -8,35 +8,20 @@ import is.ru.tictactoe.Player;
 
 public class PlayerTest {
 
-	// for EmptyPlayer tests
-	private Player player = new Player();
-	
-	
-	private Player playerName = new Player("Player");
+	// for Player tests
+	private Player player = new Player("Player");
 
 	@Test
 	//test empty constucter
-	public final void testPlayer() {
-	}
-	
-	@Test
-	//test add name to Player
-	public final void testsetName(){
-		System.out.println("Set name of Player");
-		Assert.assertEquals(true, player.setName("Player2"));
-	}
+	public final void testPlayer() {}
 	
 	@Test
 	// get the name of the player
 	public final void testgetName(){
-		player.setName("Player2");
 		
 		System.out.println("Get the name of Player");
-		Assert.assertEquals("Player", playerName.getName());
+		Assert.assertEquals("Player", player.getName());
 		
-		System.out.println("Get the name of Player2");
-		Assert.assertEquals("Player2", player.getName());
-
 	}
 	
 	@Test

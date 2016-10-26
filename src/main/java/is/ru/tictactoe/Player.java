@@ -7,19 +7,12 @@ public class Player {
 	private int gamesPlayed = 0;
 	private boolean type = false;
 	
-	public Player(){}
-	
 	public Player(String n) {
 		this.name = n;
 	}	
 		
 	public String getName(){
 		return this.name;
-	}
-	
-	public boolean setName(String name){
-		this.name = name;
-		return true;
 	}
 	
 	public boolean setHuman(){
