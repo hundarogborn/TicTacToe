@@ -2,16 +2,15 @@ package is.ru.tictactoe.webui;
 
 import spark.Request;
 import spark.Response;
-import static spark.Spark.get;
-import static spark.Spark.port;
 import spark.Redirect;
 import spark.route.RouteOverview;
-
-// lazy import
 import static spark.Spark.*;
 
 
 public class WebUI {
+
+    private static final String SESSION_NAME = "username";
+
     public WebUI(int port) {
         port(getHerokuAssignedPort());
 	
@@ -24,13 +23,30 @@ public class WebUI {
     }
 
     private void setupRoutes() {
+
+	// Example on session state
         get("/", (request, response) -> {
-		return "Hello player";
+            String name = request.session().attribute(SESSION_NAME);
+            if (name == null) {
+                return "<html><body>What's your name?: <form action=\"/entry\" method=\"POST\"><input type=\"text\" name=\"name\"/><input type=\"submit\" value=\"go\"/></form></body></html>";
+            } else {
+                return String.format("<html><body>Hello, %s!</body></html>", name);
+            }
+        });
+
+        post("/entry", (request, response) -> {
+            String name = request.queryParams("name");
+            if (name != null) {
+                request.session().attribute(SESSION_NAME, name);
+            }
+            response.redirect("/");
+            return null;
 	});
-        
-	post("/", (request, response) -> {
-		return "Hello post";
-	});
+
+        post("/", (request, response) -> {
+            return "Hello post";
+        });
+
     }
 
 
