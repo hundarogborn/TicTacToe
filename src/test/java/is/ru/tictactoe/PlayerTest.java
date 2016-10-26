@@ -40,30 +40,29 @@ public class PlayerTest {
 	}
 	
 	@Test
+	// check if the player is humanplayer
+	public final void testisHuman(){
+		player.setHuman();
+		
+		System.out.println("Check if humanplayer");
+		Assert.assertEquals(true, player.setHuman());
+	}
+	
+	@Test
 	// get set win, looses and draws of the player
 	public final void testgetResults(){
-		
 		
 		System.out.println("Set win to the Player");
 		Assert.assertEquals(1, player.addWin());
 		
-		System.out.println("Set draw to the Player");
-		Assert.assertEquals(1, player.addDraw());
-		
-		System.out.println("Set win to the Player");
-		Assert.assertEquals(1, player.addLoose());
+		System.out.println("Set game played to the Player");
+		Assert.assertEquals(1, player.addGamesPlayed());
 		
 		System.out.println("Get wins of the Player");
 		Assert.assertEquals(1, player.getWins());
 		
-		System.out.println("Get draws of the Player");
-		Assert.assertEquals(1, player.getDraws());
-		
-		System.out.println("Get wins of the Player");
-		Assert.assertEquals(1, player.getLooses());
-		
-		
+		System.out.println("Get games played of the Player");
+		Assert.assertEquals(1, player.getGamesPlayed());
+	
 	}
-	
-	
 }
