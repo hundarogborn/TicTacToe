@@ -2,11 +2,24 @@ language: java
 jdk:
 - oraclejdk8
 script: bin/build
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 deploy:
-  provider: heroku
-  api_key:
-    secure: gRUT7odDbr7P3d90HbX9rsmVCji0S8NTtqxoSbYX/zHLsubDxTCI8FEk4xhMp49jntrdCTl9vz6fWQNkqRnfk13lFEVIHn/21+4SPFVCd4qcRyXDb6qjIki8jphL/26syHrZ8a1uwRD7TBn0DBl+Ms/IJFcIukDXE2HDnAolKpTFxiKsBI3K+Vw+0rx2CMR95ZlknZHPEQPRl8PfGCd8bGeuilt407GNhpFOqo9h+eVYXCEQpyVBNC17phRpKRcGfeGRFCo0B2c72WrkoF7M2zEjuN2oXR3FD69r9AnOsIbXHc2WCBimumsaWIX8zQYJ6GVmXFPuB0kbF2JPM7r8uXqctOSNclqKDWYI+2lpZZ31DsOgjDPyKuYU63QRDpKYC4d7hXMwq9e/u+sAeoLGir8tfLXisr7CsnWJjQL8bg7hWRtMsk72yI6HTV6ONyrbJQ9Bf7JrMNHD2VpxmZJGF5ANpJapK/FcRfp5mxf7APG55Onca63C95w4z6ZyNX6ZOAzlqnDXhb3ugochRiw8WtvMDQFpQSSHqYUt953vBNUD+nULlgrQel2JmEe0BchW6l71uH9r1TEHoTLwS9souH5l36AAVOYSo5VWAeVfqtAy+3SYeI/lSQYNQEhfPP0BYS4yEDFeGuhv0Xc4g0otYU2zBgKPWgFMqraNJkBz1Ic=
-  app: salty-woodland-44662
-  on:
-    repo: hundarogborn/TicTacToe
-    branch: master
+  # Deploy artifacts to github
+  - provider: releases
+    api_key:
+      secure: np1Z/H3KoadtjA4l6AXKmhd8BS60whqk8nAzaxYpuU51Q4KQKXGf14Ef0z+K+svDuWu4U1bplp050udouCMBtSvA+k3xA1Ei6ELGQrxTyo3CUOhJ8xPwyTd2615TPwxBr6NNGtAlXpy+LIm+pd1QvBcFknQa9J6iTUBbxVnwt++BB4kH2rjSp27B6ddob69zEWYPO4a3ebEaGAdvrf8QPaxSU9j8wXlfszIFYOun66Xt7rV/7GAuFbej5DQX3zTeqpkcSkDNLzDrMl7Tk5nEMpMcVRIjSrfd83VtDe+5fx09mX9FL1NQySRz3YBpcnrNFj/e5X5G8adkQ/a8k1Zk7W5c9JjGCk+gUTlGwecADJRViBy/GvIQ6BqFDdSZaYf/QvZZY+3EePsUZGo3NnG2ajYsxkx1T0obLFooZrmZnqDevT1H3ypGVVhAJOmYsUQyikqruOtGm8jIH04OG+dLSXQ/JNwmHdiq6IRZChiJL/szDDHMgC5BKzSWTY1r4/jIGMlM+AyFqj2RNg9Pb9ktVmPKku8RqDFLEmd/LHCI/j5gtNB5lfNq6KfmXgpHFWUa4XjxUphNd87WfYeBPm+XbD8JNbe674pxAzKIiDjKy2XkAMgR5wgu9h5OnHGPyERsTzx3UoZrX5RA0E3ndfZ+bekRfxrcvCxv8zG4O9tOBeY=
+    file: build/libs/TicTacToe-all.jar
+    skip_cleanup: true
+    on:
+      repo: hundarogborn/TicTacToe
+      tags: true
+
+  # Deploy artifacts to heroku
+  - provider: heroku
+    api_key:
+      secure: gRUT7odDbr7P3d90HbX9rsmVCji0S8NTtqxoSbYX/zHLsubDxTCI8FEk4xhMp49jntrdCTl9vz6fWQNkqRnfk13lFEVIHn/21+4SPFVCd4qcRyXDb6qjIki8jphL/26syHrZ8a1uwRD7TBn0DBl+Ms/IJFcIukDXE2HDnAolKpTFxiKsBI3K+Vw+0rx2CMR95ZlknZHPEQPRl8PfGCd8bGeuilt407GNhpFOqo9h+eVYXCEQpyVBNC17phRpKRcGfeGRFCo0B2c72WrkoF7M2zEjuN2oXR3FD69r9AnOsIbXHc2WCBimumsaWIX8zQYJ6GVmXFPuB0kbF2JPM7r8uXqctOSNclqKDWYI+2lpZZ31DsOgjDPyKuYU63QRDpKYC4d7hXMwq9e/u+sAeoLGir8tfLXisr7CsnWJjQL8bg7hWRtMsk72yI6HTV6ONyrbJQ9Bf7JrMNHD2VpxmZJGF5ANpJapK/FcRfp5mxf7APG55Onca63C95w4z6ZyNX6ZOAzlqnDXhb3ugochRiw8WtvMDQFpQSSHqYUt953vBNUD+nULlgrQel2JmEe0BchW6l71uH9r1TEHoTLwS9souH5l36AAVOYSo5VWAeVfqtAy+3SYeI/lSQYNQEhfPP0BYS4yEDFeGuhv0Xc4g0otYU2zBgKPWgFMqraNJkBz1Ic=
+    app: salty-woodland-44662
+    on:
+      repo: hundarogborn/TicTacToe
+      branch: master

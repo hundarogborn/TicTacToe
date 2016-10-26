@@ -34,7 +34,7 @@ public class Board {
 	}
 	
 	private void validPlayer(int player) {
-		if (player < 0 || player >= MAX_PLAYERS)	throw new java.lang.IllegalArgumentException("Illegal player");
+		if (player <= 0 || player > MAX_PLAYERS)	throw new java.lang.IllegalArgumentException("Illegal player");
 	}
 	
 	public int getCell(int cellX, int cellY) {
@@ -47,6 +47,7 @@ public class Board {
 		validPlayer(player);
 		if (board[cellX][cellY] == 0) {
 			board[cellX][cellY] = player;
+			moves++;
 			return true;
 		}
 		return false;
@@ -57,12 +58,12 @@ public class Board {
 	
 		// Check horizontal and vertical
 		for (int i = 0; i < BOARD_SIZE; i++) {
-			if (	board[i][0] != '0' &&
+			if (	board[i][0] != 0 &&
 					board[i][0] == board[i][1] &&
 					board[i][1] == board[i][2]) {
 				player = board[i][0];
 			}
-			else if (	board[0][i] != '0' &&
+			else if (	board[0][i] != 0 &&
 					board[0][i] == board[1][i] &&
 					board[1][i] == board[2][i]) {
 				player = board[0][i];
@@ -71,7 +72,7 @@ public class Board {
 		
 		// Check special cases (crosses)
 		if (board[1][1] != 0) {
-			if ((board[0][0] == board[1][1]) && (board[1][1] == board[2][2]))  player = board[1][1];
+			if ((board[2][0] == board[1][1]) && (board[1][1] == board[0][2]))  player = board[1][1];
 			if ((board[0][2] == board[1][1]) && (board[1][1] == board[2][0]))  player = board[1][1];
 		}
 		
