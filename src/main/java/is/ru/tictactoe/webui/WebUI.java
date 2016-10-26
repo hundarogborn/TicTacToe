@@ -5,16 +5,32 @@ import spark.Response;
 import static spark.Spark.get;
 import static spark.Spark.port;
 import spark.Redirect;
+import spark.route.RouteOverview;
+
+// lazy import
+import static spark.Spark.*;
+
 
 public class WebUI {
     public WebUI(int port) {
         port(getHerokuAssignedPort());
+	
+	// Serve static files from web directory
+	staticFileLocation("/static");
         setupRoutes();
+	
+	// Debug option to see routes at  /debug/routeoverview/
+	RouteOverview.enableRouteOverview();
     }
 
     private void setupRoutes() {
-        get("/", WebUI::redirectToGoogle);
+        get("/", (request, response) -> {
+		return "Hello player";
+	});
         
+	post("/", (request, response) -> {
+		return "Hello post";
+	});
     }
 
 
