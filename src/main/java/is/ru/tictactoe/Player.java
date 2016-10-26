@@ -2,10 +2,10 @@ package is.ru.tictactoe;
 
 public class Player {
 	
-	private String name;
+	public String name;
 	private int wins = 0;
-	private int losses = 0;
-	private int draws = 0;
+	private int gamesPlayed = 0;
+	private boolean type = false;
 	
 	public Player(){}
 	
@@ -22,28 +22,24 @@ public class Player {
 		return true;
 	}
 	
+	public boolean setHuman(){
+		this.type = true;
+		return this.type;
+	}
+	
 	public int addWin(){
 		return (++this.wins);
 	}
-
-	public int addDraw(){
-		return (++this.draws);
+	
+	public int addGamesPlayed(){
+		return (++this.gamesPlayed);
 	}
-
-	public int addLoose(){
-		return (++this.losses);
-	}	
 	
 	public int getWins(){
 		return (this.wins);
 	}
-
-	public int getDraws(){
-		return (this.draws);
-	}
-
-	public int getLooses(){
-		return (this.losses);
-	}
 	
+	public int getGamesPlayed(){
+		return (this.gamesPlayed);
+	}
 }
