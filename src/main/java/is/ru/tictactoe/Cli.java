@@ -49,4 +49,26 @@ public class Cli {
 		println(line);
 	}
 
+	private void greeting() {
+		println("");
+		String line = "\n";
+		line += ".::: .::::::          .::: .::::::                 .::: .::::::                    \n";
+		line += "     .::     .:            .::                          .::                        \n";
+		line += "     .::          .:::     .::       .::       .:::     .::       .::       .::    \n";
+		line += "     .::    .:: .::        .::     .::  .::  .::        .::     .::  .::  .:   .:: \n";
+		line += "     .::    .::.::         .::    .::   .:: .::         .::    .::    .::.::::: .::\n";
+		line += "     .::    .:: .::        .::    .::   .::  .::        .::     .::  .:: .:        \n";
+		line += "     .::    .::   .:::     .::      .:: .:::   .:::     .::       .::      .::::   \n";
+		line += "\n";
+		println(line);
+	}
+	
+	public void startGame() {
+		
+		greeting();
+		//p1 = setPlayer(1);
+		//p2 = setPlayer(2);
+		
+	}
+
 }
