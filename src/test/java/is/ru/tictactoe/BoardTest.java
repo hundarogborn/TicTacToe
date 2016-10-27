@@ -7,14 +7,11 @@ import org.junit.Test;
 public class BoardTest {
     
     @Test public final void testBoardSize() {
-        Assert.assertEquals(1, (new Board(1)).boardSize());
-        Assert.assertEquals(3, (new Board(3)).boardSize());
-        Assert.assertEquals(5, (new Board(5)).boardSize());
-        Assert.assertEquals(13, (new Board(13)).boardSize());
+        Assert.assertEquals(3, (new Board()).boardSize());
     }
 
     @Test public final void testThatBoardIsInitiallyEmpty() {
-        Board b = new Board(3);
+        Board b = new Board();
         
         for(int y = 0; y < b.boardSize(); y++) {
             for(int x = 0; x < b.boardSize(); x++) {
@@ -27,7 +24,7 @@ public class BoardTest {
     // case where a cell is set more than once
     @Test
     public final void testSetCellOnceThrows() {
-        Board b = new Board(3);
+        Board b = new Board();
         b.setCellOnce(0, 0, 1);
         try {
             b.setCellOnce(0, 0, 1);
@@ -40,7 +37,7 @@ public class BoardTest {
     // with getCell.
     @Test
     public final void testSetCellOnce() {
-        Board b = new Board(3);
+        Board b = new Board();
 
         b.setCellOnce(0, 0, 1);
         assertEquals(1, b.getCell(0, 0));
