@@ -72,8 +72,8 @@ public class Engine {
                     playerId = this.board.getCell(1, 1);
                 }
             
-            if (this.board.getCell(0, 2) == this.board.getCell(1, 1) &&
-                this.board.getCell(1, 1) == this.board.getCell(2, 0))
+            if (this.board.getCell(0, 0) == this.board.getCell(1, 1) &&
+                this.board.getCell(1, 1) == this.board.getCell(2, 2))
                 {
                     playerId = this.board.getCell(1, 1);
                 }
