@@ -1,6 +1,6 @@
 package is.ru.tictactoe;
 
-public class Board {
+public class Board implements java.io.Serializable {
     private final int boardSize = 3;
     private int[][] board;
     

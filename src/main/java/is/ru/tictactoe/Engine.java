@@ -1,6 +1,6 @@
 package is.ru.tictactoe;
 
-public class Engine {
+public class Engine implements java.io.Serializable {
 
     private final static int MAX_PLAYERS = 2;
     private Board board;
@@ -36,7 +36,7 @@ public class Engine {
             throw new IllegalMoveException("cell has already been played");
         }
     }
-
+    
     private void validatePlayer(int playerId) {
         if (playerId <= 0 || playerId > MAX_PLAYERS) {
             throw new java.lang.IllegalArgumentException("Illegal player");
