@@ -13,8 +13,8 @@ public class Engine {
         GAME_IN_PROGRESS,
     }
     
-    public Engine(int boardSize) {
-        this(new Board(boardSize));
+    public Engine() {
+        this(new Board());
     }
 
     public Engine(Board b) {

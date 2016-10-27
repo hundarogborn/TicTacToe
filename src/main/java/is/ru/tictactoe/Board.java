@@ -1,12 +1,11 @@
 package is.ru.tictactoe;
 
 public class Board {
-    private final int boardSize;
+    private final int boardSize = 3;
     private int[][] board;
     
-    public Board(int boardSize) {
+    public Board() {
         this.board = new int[boardSize][boardSize];
-        this.boardSize = boardSize;
         for (int cellX = 0; cellX < boardSize; cellX++) {
             for (int cellY = 0; cellY < boardSize; cellY++) {
                 this.board[cellX][cellY] = -1;
@@ -17,11 +16,11 @@ public class Board {
     }
     
     public int boardSize() {
-        return boardSize;
+        return this.boardSize;
     }
     
     public int getCell(int cellX, int cellY) {
-        return board[cellX][cellY];
+        return this.board[cellX][cellY];
     }
 
     /* setCellOnce - Set (cellX, cellY) to value if-and-only-if it hasn't been set before.
