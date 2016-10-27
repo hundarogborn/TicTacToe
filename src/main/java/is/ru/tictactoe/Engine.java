@@ -43,6 +43,14 @@ public class Engine {
         }
     }
 
+    // Translates cell coordinate from a single integer and returns cell value
+    public int getCell(int number) {
+    	int x = (number % 3 + 1);
+    	int y = (number - (x*3));
+    	if ((x < 0 &&  x >= 3) && (y < 0 && y >= 3))
+    		throw new java.lang.IllegalArgumentException("Illegal cell");
+    	return board.getCell(x, y);
+    }
     
     public GameResult winner() {
         int playerId = 0;
