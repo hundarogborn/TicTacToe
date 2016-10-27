@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class EngineTest {
 
-    private Engine engine = new Engine(3);
+    private Engine engine = new Engine();
 
     @Test
     public final void testMakeMove() throws IllegalMoveException {
@@ -75,35 +75,35 @@ public class EngineTest {
 
     @Test
     public final void testWinner() throws IllegalMoveException {
-        Engine e = new Engine(3);
+        Engine e = new Engine();
         System.out.println("Inside Winner()");
         assertEquals(Engine.GameResult.GAME_IN_PROGRESS, e.winner());
         
-        e = new Engine(3);
+        e = new Engine();
         e.makeMove(0, 0, 1);
         e.makeMove(1, 0, 1);
         e.makeMove(2, 0, 1);
         assertEquals(Engine.GameResult.PLAYER_1, e.winner());
         
-        e = new Engine(3);
+        e = new Engine();
         e.makeMove(0, 0, 2);
         e.makeMove(0, 1, 2);
         e.makeMove(0, 2, 2);
         assertEquals(Engine.GameResult.PLAYER_2, e.winner());
 
-        e = new Engine(3);
+        e = new Engine();
         e.makeMove(0, 2, 2);
         e.makeMove(1, 1, 2);
         e.makeMove(2, 0, 2);
         assertEquals(Engine.GameResult.PLAYER_2, e.winner());
         
-        e = new Engine(3);
+        e = new Engine();
         e.makeMove(2, 0, 1);
         e.makeMove(1, 1, 1);
         e.makeMove(0, 2, 1);
         assertEquals(Engine.GameResult.PLAYER_1, e.winner());
 
-        e = new Engine(3);
+        e = new Engine();
         e.makeMove(0, 0, 1);
         e.makeMove(0, 1, 1);
         e.makeMove(0, 2, 2);
