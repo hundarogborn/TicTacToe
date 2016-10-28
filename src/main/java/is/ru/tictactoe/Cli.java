@@ -105,6 +105,15 @@ public class Cli {
 		}
 	}
 
+	private boolean playAgain() {
+		println("Play again? (y/n): ");
+		while (!sc.hasNext("[yn]")) {
+		    println("Please enter y or n!");
+		    sc.next();
+		}
+		return (sc.next().equals("y"));
+	}
+
 	public void startGame() {
 
 		greeting();
@@ -139,9 +148,13 @@ public class Cli {
 			game = new Engine();
 			moves = 0;
 			
-			println("Here we should ask if you want to play again!");
 			println("");
+			hooked = playAgain();
 		}
 
+		println("");
+		println("Thanks for playing!");
+		// Close our open IO handles
+		sc.close();
 	}
 }
