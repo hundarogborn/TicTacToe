@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Cli {
 
-	Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
 	private Engine game;
 	private Player p1;
 	private Player p2;
@@ -63,12 +63,22 @@ public class Cli {
 		println(line);
 	}
 	
+
+	private Player setPlayer(int num) {
+		Player player;
+		System.out.print("Player " + num + " name: ");
+		String name = sc.next();
+		player = new Player(name);
+		return player;
+	}
+
 	public void startGame() {
-		
+
 		greeting();
-		//p1 = setPlayer(1);
-		//p2 = setPlayer(2);
+		p1 = setPlayer(1);
+		p2 = setPlayer(2);
 		
+		sc.close();
 	}
 
 }
