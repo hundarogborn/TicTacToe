@@ -21,6 +21,10 @@ public class Engine implements java.io.Serializable {
         this.board = b;
     }
 
+    public final Board getBoard() {
+        return this.board;
+    }
+
     /* makeMove - Mark cell (X, Y) as played by player.
      * If cell has already been played or if cell index is out of bounds; throw IllegalMoveException.
      */
