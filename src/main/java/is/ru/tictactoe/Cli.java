@@ -1,6 +1,7 @@
 package is.ru.tictactoe;
 
 import java.util.Scanner;
+import is.ru.tictactoe.Engine.GameResult;
 
 public class Cli {
 
@@ -95,7 +96,8 @@ public class Cli {
 			int index = sc.nextInt();
 			coordinates cord = getCellCords(index - 1);
 			try {
-				game.makeMove(cord.x, cord.y, ((moves % 2) + 1));
+				// Need to match moves to player 1 and 2
+				game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));
 				valid = true;
 			} catch (IllegalMoveException e) {
 				print("Try again!");
@@ -111,11 +113,35 @@ public class Cli {
 		int moves = 0;
 		
 		while (hooked == true) {
-			printBoard();
-			makeMove(++moves);
+			do {
+				printBoard();
+				makeMove(++moves);
+			} while (game.winner() == GameResult.GAME_IN_PROGRESS);
 			
+			printBoard();
+			println("");
+			println("");
+			
+			p1.addGamesPlayed();
+			p2.addGamesPlayed();
+			
+			if (game.winner() == GameResult.PLAYER_1) {
+				p1.addWin();
+				println("Congratulations " + p1.name + " - You have won " + p1.getWins() + " out of " + p1.getGamesPlayed() + " games!");
+			} else if (game.winner() == GameResult.PLAYER_2) {
+				p2.addWin();
+				println("Congratulations " + p2.name + " - You have won " + p2.getWins() + " out of " + p2.getGamesPlayed() + " games!");
+			} else {
+				println("To bad - this is a stale mate!");
+			}
+			
+			// Reset game state
+			game = new Engine();
+			moves = 0;
+			
+			println("Here we should ask if you want to play again!");
+			println("");
 		}
 
 	}
-
 }
