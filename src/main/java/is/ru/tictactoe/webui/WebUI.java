@@ -8,11 +8,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
+import spark.ModelAndView;
+import spark.Redirect;
 import spark.Request;
 import spark.Response;
-import spark.Redirect;
 import spark.route.RouteOverview;
+import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.*;
 
 import is.ru.tictactoe.Engine;
@@ -39,7 +43,7 @@ public class WebUI {
                 // First; see if a user has entered his name
                 String name = request.session().attribute(SESSION_NAME);
                 if(name == null) {
-                    return "<html><body>What's your name?: <form action=\"/entry\" method=\"POST\"><input type=\"text\" name=\"name\"/><input type=\"submit\" value=\"go\"/></form></body></html>";
+                    return new ModelAndView(null, "name_form.ftl");
                 }
                 
                 Engine game;
@@ -55,22 +59,19 @@ public class WebUI {
                 switch(game.winner()) {
                 case PLAYER_1:
                     // Assume that player 1 is human
-                    return "<html><body><h1>CONGRATULATIONS!  YOU WON!!!!!!!111</h1></body></html>";
+                    return new ModelAndView(null, "you_won.ftl");
                 case PLAYER_2:
-                    return "<html><body><h1>You lost :( - Soon, the machines will take over</h1></body></html>";
+                    return new ModelAndView(null, "tie.ftl");
                 case STALE_MATE:
-                    return "<html><body><h1>Stalemate!  Phew; maybe there's hope</h1></body></html>";
+                    return new ModelAndView(null, "stalemate.ftl");
                 case GAME_IN_PROGRESS:
                     break;
                 }
 
-                // TODO: Render board
-                
-                // Game must be in progress.  Prompt for a move and update the game state.
-                response.cookie("game", serialize(game));
-                
-                return "woah";
-            });
+                Map<String, Object> attributes = new HashMap<>();
+                attributes.put("board",game.getBoard());
+                return new ModelAndView(attributes, "board.ftl");
+            }, new FreeMarkerEngine());
 
         post("/entry", (request, response) -> {
                 String name = request.queryParams("name");
@@ -83,6 +84,10 @@ public class WebUI {
 
         post("/", (request, response) -> {
                 return "Hello post";
+            });
+
+        exception(Exception.class, (e, req, res) -> {
+                res.body(e.getMessage());
             });
     }
 
