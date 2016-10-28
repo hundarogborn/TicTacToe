@@ -25,16 +25,24 @@ public class Engine {
      * If cell has already been played or if cell index is out of bounds; throw IllegalMoveException.
      */
     public void makeMove(int cellX, int cellY, int playerId) throws IllegalMoveException {
-        validatePlayer(playerId);
-        
         try {
+            validatePlayer(playerId);
             this.board.setCellOnce(cellX, cellY, playerId);
             this.moves++;
         } catch(IndexOutOfBoundsException e) {
             throw new IllegalMoveException("move is out of bounds");
         } catch(IllegalStateException e) {
             throw new IllegalMoveException("cell has already been played");
+        } catch(IllegalArgumentException e) {
+        	throw new IllegalMoveException("Illegal player");
         }
+
+    }
+
+    public int getCell(int cellX, int cellY) {
+    	if ((cellX < 0 &&  cellX >= 3) && (cellY < 0 && cellY >= 3))
+    		throw new java.lang.IllegalArgumentException("Illegal cell");
+    	return board.getCell(cellX, cellY);
     }
 
     private void validatePlayer(int playerId) {
@@ -43,15 +51,6 @@ public class Engine {
         }
     }
 
-    // Translates cell coordinate from a single integer and returns cell value
-    public int getCell(int number) {
-    	int x = (number % 3 + 1);
-    	int y = (number - (x*3));
-    	if ((x < 0 &&  x >= 3) && (y < 0 && y >= 3))
-    		throw new java.lang.IllegalArgumentException("Illegal cell");
-    	return board.getCell(x, y);
-    }
-    
     public GameResult winner() {
         int playerId = 0;
 

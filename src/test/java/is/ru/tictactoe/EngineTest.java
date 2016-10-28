@@ -59,7 +59,7 @@ public class EngineTest {
         try {
             engine.makeMove(2,2,3);
             fail();
-        } catch(IllegalArgumentException ex) {
+        } catch(IllegalMoveException ex) {
             assertEquals("Illegal player", ex.getMessage());
         }
 
@@ -67,7 +67,7 @@ public class EngineTest {
         try {
             engine.makeMove(2,2,-1);
             fail();
-        } catch(IllegalArgumentException ex) {
+        } catch(IllegalMoveException ex) {
             assertEquals("Illegal player", ex.getMessage());
         }
         

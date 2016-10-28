@@ -17,6 +17,11 @@ public class Cli {
 		this.p2 = new Player("");
 	}
 
+	private class coordinates {
+		int x;
+		int y;
+	}
+
 	private void print(String string) {
 		System.out.print(string);;
 	}
@@ -25,27 +30,24 @@ public class Cli {
 		System.out.println(string);;
 	}
 
-
 	private void printBoard() {
-		int counter = 0;
 		char[] cell = new char[9];
-		
-		for (int i = 0; i < 9; i++) {
-			int player = game.getCell(i);
-			if (player == 1)
-				cell[i] = 'X';
-			else if (player == 2)
-				cell[i] = 'O';
-			else cell[i] = ' ';
+		for (int index = 0; index < 9; index++) {
+			coordinates cord = getCellCords(index);
+			int token = game.getCell(cord.x, cord.y);
+			if (token == 1)
+				cell[index] = 'X';
+			else if (token == 2)
+				cell[index] = 'O';
+			else cell[index] = ' ';
 		}
 		
-		counter = 0;
 		println("");
-		String line = String.format(" %s | %s | %s    1 2 3\n", cell[1], cell[2], cell[3]);
+		String line = String.format(" %s | %s | %s    1 2 3\n", cell[0], cell[1], cell[2]);
 		line += "-----------\n"; 
-		line += String.format(" %s | %s | %s    4 5 6\n", cell[4], cell[5], cell[6]);
+		line += String.format(" %s | %s | %s    4 5 6\n", cell[3], cell[4], cell[5]);
 		line += "-----------\n"; 
-		line += String.format(" %s | %s | %s    7 8 9\n", cell[7], cell[8], cell[9]);
+		line += String.format(" %s | %s | %s    7 8 9\n", cell[6], cell[7], cell[8]);
 		println(line);
 	}
 
@@ -62,7 +64,14 @@ public class Cli {
 		line += "\n";
 		println(line);
 	}
-	
+
+	// Translate index to x,y coordinates
+	private coordinates getCellCords(int index) {
+		coordinates cord = new coordinates();
+		cord.x = (index % 3);
+		cord.y = (index / 3);
+		return cord;
+	}
 
 	private Player setPlayer(int num) {
 		Player player;
@@ -72,13 +81,41 @@ public class Cli {
 		return player;
 	}
 
+	private void makeMove(int moves) {
+		boolean valid = false;
+
+		while(!valid) { 
+			// Check if player 1
+			if (moves % 2 == 1) {
+				print("Player " + p1.getName() + " move: ");
+			} else {
+				print("Player " + p2.getName() + " move: ");
+			}
+		
+			int index = sc.nextInt();
+			coordinates cord = getCellCords(index - 1);
+			try {
+				game.makeMove(cord.x, cord.y, ((moves % 2) + 1));
+				valid = true;
+			} catch (IllegalMoveException e) {
+				print("Try again!");
+			} 		
+		}
+	}
+
 	public void startGame() {
 
 		greeting();
 		p1 = setPlayer(1);
 		p2 = setPlayer(2);
+		int moves = 0;
 		
-		sc.close();
+		while (hooked == true) {
+			printBoard();
+			makeMove(++moves);
+			
+		}
+
 	}
 
 }
