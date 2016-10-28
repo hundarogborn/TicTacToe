@@ -26,9 +26,10 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // The web ui uses Spark
+    // The web ui uses Spark + freemarker
     compile "com.sparkjava:spark-core:2.5"
-
+    compile "com.sparkjava:spark-template-freemarker:2.3"
+    
     // The production code uses the SLF4J logging API at compile time
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
 
