@@ -30,6 +30,12 @@ public class WebUI {
 
     private void setupRoutes() {
 
+        get("/reset", (request, response) -> {
+                request.session().removeAttribute("game");
+                response.redirect("/");
+                return null;
+            });
+        
         // Example on session state
         get("/", (request, response) -> {
                 // First; see if a user has entered his name
