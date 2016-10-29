@@ -27,10 +27,10 @@ public class PlayerTest {
 	@Test
 	// check if the player is humanplayer
 	public final void testisHuman(){
-		player.setHuman();
+		player.setHuman(true);
 		
 		System.out.println("Check if humanplayer");
-		Assert.assertEquals(true, player.setHuman());
+		Assert.assertEquals(true, player.isHuman());
 	}
 	
 	@Test

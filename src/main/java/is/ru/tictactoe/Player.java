@@ -5,7 +5,7 @@ public class Player {
 	public String name;
 	private int wins = 0;
 	private int gamesPlayed = 0;
-	private boolean type = false;
+	private boolean human = true;
 	
 	public Player(String n) {
 		this.name = n;
@@ -15,11 +15,14 @@ public class Player {
 		return this.name;
 	}
 	
-	public boolean setHuman(){
-		this.type = true;
-		return this.type;
+	public void setHuman(boolean human){
+		this.human = human;
 	}
 	
+	public boolean isHuman() {
+		return this.human;
+	}
+
 	public int addWin(){
 		return (++this.wins);
 	}
