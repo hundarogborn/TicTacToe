@@ -5,15 +5,23 @@
   </head>
   <body>
     <h1>Here, be board</h1>
+    <form method="POST" action="/" />
     <table>
-    <#list 0..2 as y>
+    <#assign size=board.boardSize()>
+    <#list 0..(size-1) as y>
       <tr>
-      <#list 0..2 as x>
-        <td>${board.getCell(x, y)}</td>
-      </#list>
+        <#list 0..(size-1) as x>
+          <#assign cell=board.getCell(x,y)>
+            <#if cell == -1>
+              <td><input type="submit" name="${size*y+x}" value=" "></td>
+            <#else>
+              <td>${cell}</td>
+            </#if>
+          </#list>
       </tr>
-    </#list>
+      </#list>
     </table>
+    </form>
   </body>
 </html>
 
