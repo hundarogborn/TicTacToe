@@ -63,3 +63,8 @@ jacocoTestReport {
 
 // And run jacoco during check phase
 check.dependsOn jacocoTestReport
+
+// Add support for system.in during runtime of java application
+run{
+    standardInput = System.in
+}

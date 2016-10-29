@@ -59,7 +59,7 @@ public class EngineTest {
         try {
             engine.makeMove(2,2,3);
             fail();
-        } catch(IllegalArgumentException ex) {
+        } catch(IllegalMoveException ex) {
             assertEquals("Illegal player", ex.getMessage());
         }
 
@@ -67,7 +67,7 @@ public class EngineTest {
         try {
             engine.makeMove(2,2,-1);
             fail();
-        } catch(IllegalArgumentException ex) {
+        } catch(IllegalMoveException ex) {
             assertEquals("Illegal player", ex.getMessage());
         }
         
@@ -81,26 +81,50 @@ public class EngineTest {
         
         e = new Engine();
         e.makeMove(0, 0, 1);
-        e.makeMove(1, 0, 1);
-        e.makeMove(2, 0, 1);
+        e.makeMove(0, 1, 1);
+        e.makeMove(0, 2, 1);
         assertEquals(Engine.GameResult.PLAYER_1, e.winner());
         
         e = new Engine();
-        e.makeMove(0, 0, 2);
-        e.makeMove(0, 1, 2);
-        e.makeMove(0, 2, 2);
+        e.makeMove(1, 0, 2);
+        e.makeMove(1, 1, 2);
+        e.makeMove(1, 2, 2);
         assertEquals(Engine.GameResult.PLAYER_2, e.winner());
 
         e = new Engine();
-        e.makeMove(0, 2, 2);
-        e.makeMove(1, 1, 2);
         e.makeMove(2, 0, 2);
+        e.makeMove(2, 1, 2);
+        e.makeMove(2, 2, 2);
+        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+		
+		e = new Engine();
+        e.makeMove(0, 0, 2);
+        e.makeMove(1, 0, 2);
+        e.makeMove(2, 0, 2);
+        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+		
+		e = new Engine();
+        e.makeMove(0, 1, 2);
+        e.makeMove(1, 1, 2);
+        e.makeMove(2, 1, 2);
+        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+		
+		e = new Engine();
+        e.makeMove(0, 2, 2);
+        e.makeMove(1, 2, 2);
+        e.makeMove(2, 2, 2);
         assertEquals(Engine.GameResult.PLAYER_2, e.winner());
         
         e = new Engine();
         e.makeMove(2, 0, 1);
         e.makeMove(1, 1, 1);
         e.makeMove(0, 2, 1);
+        assertEquals(Engine.GameResult.PLAYER_1, e.winner());
+		
+		e = new Engine();
+        e.makeMove(0, 0, 1);
+        e.makeMove(1, 1, 1);
+        e.makeMove(2, 2, 1);
         assertEquals(Engine.GameResult.PLAYER_1, e.winner());
 
         e = new Engine();
