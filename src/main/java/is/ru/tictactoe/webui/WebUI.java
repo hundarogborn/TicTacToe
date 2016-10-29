@@ -45,15 +45,11 @@ public class WebUI {
                 if(name == null) {
                     return new ModelAndView(null, "name_form.ftl");
                 }
-                
-                Engine game;
-                String serializedGame = request.cookie("game");
-                if(serializedGame == null) {
-                    System.out.println("Creating a new game");
+
+                Engine game = request.session().attribute("game");
+                if(game == null) {
                     game = new Engine();
-                } else {
-                    System.out.println("Deserializing a game");
-                    game = deserialize(serializedGame);
+                    request.session().attribute("game", game);
                 }
 
                 switch(game.winner()) {
@@ -82,35 +78,9 @@ public class WebUI {
                 return null;
             });
 
-        post("/", (request, response) -> {
-                return "Hello post";
-            });
-
         exception(Exception.class, (e, req, res) -> {
                 res.body(e.getMessage());
             });
-    }
-
-    /* deserialize - Deserialize the base64-encoded, serialiszed engine 
-     * from serializedGame 
-     */
-    private static Engine deserialize(String serializedGame) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(serializedGame.getBytes());
-        InputStream decodedInputStream = Base64.getDecoder().wrap(inputStream);
-        ObjectInputStream oos = new ObjectInputStream(decodedInputStream);
-
-        return (Engine)oos.readObject();
-    }
-
-    /* serialize - Serialize game; base64-encode as string 
-     */
-    private static String serialize(Engine game) throws IOException {
-        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutputStream objectStream = new ObjectOutputStream(bos)) {
-            objectStream.writeObject(game);
-            
-            return Base64.getEncoder().encodeToString(bos.toByteArray());
-        }
     }
 
     static int getHerokuAssignedPort() {
