@@ -51,7 +51,7 @@ public class WebUI {
                     game = new Engine();
                     request.session().attribute("game", game);
                 }
-
+                
                 switch(game.winner()) {
                 case PLAYER_1:
                     // Assume that player 1 is human
@@ -71,6 +71,35 @@ public class WebUI {
                 
             }, new FreeMarkerEngine());
 
+        // Handle post; a player played a cell
+        post("/", (request, response) -> {
+                Engine game = request.session().attribute("game");
+                if(game == null) {
+                    // Player is posting without a game session.
+                    // Have him sign up.
+                    response.redirect("/");
+                    return null;
+                }
+
+                // Find the cell played
+                if(request.queryParams().size() != 1) {
+                    // Illegal request
+                    halt(400, "Illegal request");
+                }
+
+                // Decode the cell number into (y, x) coordinates
+                int cellNum = Integer.parseInt(request.queryParams().iterator().next());
+                int y = cellNum / game.getBoard().boardSize();
+                int x = cellNum % game.getBoard().boardSize();
+
+                // Make the move
+                game.makeMove(x, y, 1);
+                
+                response.redirect("/");
+                return null;
+            });
+        
+        
         post("/entry", (request, response) -> {
                 String name = request.queryParams("name");
                 if (name != null) {
@@ -93,7 +122,6 @@ public class WebUI {
         return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
-    
     public static String redirectToGoogle(Request req, Response res) {
         res.redirect("https://www.google.is/#q=tic+tac+toe");
         return "";
