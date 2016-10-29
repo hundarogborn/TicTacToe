@@ -4,4 +4,4 @@
 # script works as expected if the project directory isn't the CWD.
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-"$SCRIPT_DIR/../gradlew" run
+"$SCRIPT_DIR/../gradlew" run -PappArgs="['web']"
