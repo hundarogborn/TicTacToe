@@ -64,9 +64,11 @@ public class WebUI {
                     break;
                 }
 
-                Map<String, Object> attributes = new HashMap<>();
-                attributes.put("board",game.getBoard());
-                return new ModelAndView(attributes, "board.ftl");
+                // Populate the board template
+                Map<String, Object> templateParams = new HashMap<>();
+                templateParams.put("board", game.getBoard());
+                return new ModelAndView(templateParams, "board.ftl");
+                
             }, new FreeMarkerEngine());
 
         post("/entry", (request, response) -> {
