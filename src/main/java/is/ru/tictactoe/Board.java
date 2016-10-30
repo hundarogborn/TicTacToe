@@ -24,7 +24,7 @@ public class Board implements java.io.Serializable {
     }
 
     // Return the cell number for coordinates, i.e., (0,0) is cell 0 and (1,0) is cell 3
-    public int cellNumber(int cellX, int cellY) {
+    public int getCellNumber(int cellX, int cellY) {
         return cellX*this.boardSize() + cellY;
     }
 
