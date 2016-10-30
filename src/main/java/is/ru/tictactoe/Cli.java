@@ -23,15 +23,16 @@ public class Cli {
 		int y;
 	}
 
+
 	private void print(String string) {
-		System.out.print(string);;
+		System.out.print(string);
 	}
 	
 	private void println(String string) {
-		System.out.println(string);;
+		System.out.println(string);
 	}
 
-	private void printBoard() {
+	public void printBoard() {
 		char[] cell = new char[9];
 		for (int index = 0; index < 9; index++) {
 			coordinates cord = getCellCords(index);
@@ -69,10 +70,19 @@ public class Cli {
 	// Translate index to x,y coordinates
 	private coordinates getCellCords(int index) {
 		coordinates cord = new coordinates();
-		cord.x = (index % 3);
-		cord.y = (index / 3);
+		cord.x = cordX(index);	
+		cord.y = cordY(index);
 		return cord;
 	}
+
+	public int cordX(int index) {
+		return (index % 3);
+	}
+
+	public int cordY(int index) {
+		return (index / 3);
+	}
+	
 
 	private Player setPlayer(int num) {
 		Player player;
@@ -82,6 +92,7 @@ public class Cli {
 		return player;
 	}
 
+	
 	private void makeMove(int moves) {
 		boolean valid = false;
 
