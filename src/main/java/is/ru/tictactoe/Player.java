@@ -9,7 +9,14 @@ public class Player {
 	
 	public Player(String n) {
 		this.name = n;
-	}	
+	}
+	
+	public Player(Player p) {
+	    this.name = p.name;
+	    this.wins = p.wins;
+	    this.gamesPlayed = p.gamesPlayed;
+	    this.human = p.human;
+	}
 		
 	public String getName(){
 		return this.name;

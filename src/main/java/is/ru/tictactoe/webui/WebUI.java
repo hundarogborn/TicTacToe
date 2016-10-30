@@ -18,10 +18,6 @@ import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
 
-    private static final String GAMETYPE = "unknown";
-    private static Player player1;
-    private static Player player2;
-
     public WebUI(int port) {
         port(port);
         // Serve static files from web directory
@@ -30,29 +26,28 @@ public class WebUI {
 
         // Debug option to see routes at /debug/routeoverview/
         RouteOverview.enableRouteOverview();
-
-        player1 = new Player("");
-        player2 = new Player("");
-
     }
 
     private void setupRoutes() {
         get("/", WebUI::rootGetHandler, new FreeMarkerEngine());
+        post("/", WebUI::moveSubmissionHandler);
+        get("/new", WebUI::newGameHandler);
         get("/reset", WebUI::resetGameHandler);
         post("/entry", WebUI::entryPostHandler);
-        post("/", WebUI::moveSubmissionHandler);
         exception(Exception.class, WebUI::exceptionHandler);
     }
 
     public static Object entryPostHandler(Request request, Response response) {
         String type = request.queryParams("type");
         if (type != null) {
-            request.session().attribute(GAMETYPE, type);
-            player1 = new Player(request.queryParams("player1"));
-            player2 = new Player(request.queryParams("player2"));
+            request.session().attribute("type", type);
+            Player player1 = new Player(request.queryParams("player1"));
+            Player player2 = new Player(request.queryParams("player2"));
             if (type.equals("pvc")) {
                 player2.setHuman(false);
             }
+            request.session().attribute("player1", player1);
+            request.session().attribute("player2", player2);
         }
         response.redirect("/");
         return null;
@@ -60,7 +55,7 @@ public class WebUI {
 
     public static ModelAndView rootGetHandler(Request request, Response response) {
         // First; see if a user has entered his name
-        String type = request.session().attribute(GAMETYPE);
+        String type = request.session().attribute("type");
         if (type == null) {
             return new ModelAndView(null, "name_form.ftl");
         }
@@ -70,14 +65,24 @@ public class WebUI {
             game = new Game();
             request.session().attribute("game", game);
         }
-
+        
+        Player player1 = request.session().attribute("player1");
+        Player player2 = request.session().attribute("player2");
+        
+        String score = "";
         Map<String, Object> templateParams = new HashMap<>();
         switch (game.winner()) {
         case PLAYER_1:
             // Assume that player 1 is human
+            player1.addWin();
+            score = getScore(game, player1, player2);
+            templateParams.put("score", score);
             templateParams.put("message", "CONGRATULATIONS! " + player1.getName() + " YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case PLAYER_2:
+            player2.addWin();
+            score = getScore(game, player1, player2);
+            templateParams.put("score", score);
             if (player2.isHuman()) {
                 templateParams.put("message", "CONGRATULATIONS! " + player2.getName() + " YOU WON!");
                 return new ModelAndView(templateParams, "game_results.ftl");
@@ -86,6 +91,8 @@ public class WebUI {
                 return new ModelAndView(templateParams, "game_results.ftl");
             }
         case STALE_MATE:
+            score = getScore(game, player1, player2);
+            templateParams.put("score", score);
             templateParams.put("message", "Close - but no cigar; this was a tie");
             return new ModelAndView(templateParams, "game_results.ftl");
         case GAME_IN_PROGRESS:
@@ -166,8 +173,27 @@ public class WebUI {
 
         return null;
     }
+    
+    
+    public static Object newGameHandler(Request request, Response response) {
+        request.session().removeAttribute("game");
+        request.session().removeAttribute("type");
+        request.session().removeAttribute("player1");
+        request.session().removeAttribute("player2");
+        response.redirect("/");
+     
+        return null;
+    }
 
     public static void exceptionHandler(Exception e, Request request, Response response) {
         response.body(e.getMessage());
+    }
+    
+    public static String getScore(Game game, Player player1, Player player2) {
+        String score = "Game score:<br>";
+        score += "Total games played: " + player1.addGamesPlayed() + "<br>";
+        score += player1.getName() + " has won " + player1.getWins() + " times!<br>";
+        score += player2.getName() + " has won " + player2.getWins() + " times!<br>";
+        return score;
     }
 }

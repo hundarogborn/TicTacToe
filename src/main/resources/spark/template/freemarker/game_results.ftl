@@ -7,6 +7,8 @@
   </head>
   <body>
     <h1>${message}</h1>
-    <a href="/reset">Reset board and play again?</a>
+    <p>${score}</p>
+    <a href="/reset">Play again</a>
+    <a href="/new">Quit (give up!)</a>
   </body>
 </html>
