@@ -72,8 +72,8 @@ public class Cli {
 	private coordinates getCellCords(int index) {
 		coordinates cord = new coordinates();
 	
-		cord.x = setCordx;	
-		cord.y = setCordy;	
+		cord.x = setCordx(index);	
+		cord.y = setCordy(index);	
 	//	cord.x = (index % 3);
 	//	cord.y = (index / 3);
 		return cord;
@@ -97,8 +97,6 @@ public class Cli {
 	}
 
 	
-
-
 	private void makeMove(int moves) {
 		boolean valid = false;
 
