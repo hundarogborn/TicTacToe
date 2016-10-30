@@ -30,6 +30,7 @@ public class WebUI {
     private void setupRoutes() {
         get("/", WebUI::rootGetHandler, new FreeMarkerEngine());
         get("/reset", WebUI::resetGameHandler);
+        post("/entry", WebUI::entryPostHandler);
 
         // Handle post; a player played a cell
         post("/", (request, response) -> {
@@ -60,18 +61,18 @@ public class WebUI {
             });
         
         
-        post("/entry", (request, response) -> {
-                String name = request.queryParams("name");
-                if (name != null) {
-                    request.session().attribute(USERNAME, name);
-                }
-                response.redirect("/");
-                return null;
-            });
-
         exception(Exception.class, (e, req, res) -> {
                 res.body(e.getMessage());
             });
+    }
+
+    public static Object entryPostHandler(Request request, Response response) {
+        String name = request.queryParams("name");
+        if (name != null) {
+            request.session().attribute(USERNAME, name);
+        }
+        response.redirect("/");
+        return null;
     }
 
     public static ModelAndView rootGetHandler(Request request, Response response) {
