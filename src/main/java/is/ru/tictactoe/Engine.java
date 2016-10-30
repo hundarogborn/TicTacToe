@@ -1,6 +1,6 @@
 package is.ru.tictactoe;
 
-public class Engine {
+public class Engine implements java.io.Serializable {
 
     private final static int MAX_PLAYERS = 2;
     private Board board;
@@ -19,6 +19,10 @@ public class Engine {
 
     public Engine(Board b) {
         this.board = b;
+    }
+
+    public final Board getBoard() {
+        return this.board;
     }
 
     /* makeMove - Mark cell (X, Y) as played by player.
@@ -44,7 +48,7 @@ public class Engine {
     		throw new java.lang.IllegalArgumentException("Illegal cell");
     	return board.getCell(cellX, cellY);
     }
-
+    
     private void validatePlayer(int playerId) {
         if (playerId <= 0 || playerId > MAX_PLAYERS) {
             throw new java.lang.IllegalArgumentException("Illegal player");

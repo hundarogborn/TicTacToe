@@ -1,6 +1,6 @@
 package is.ru.tictactoe;
 
-public class Board {
+public class Board implements java.io.Serializable {
     private final int boardSize = 3;
     private int[][] board;
     
@@ -21,6 +21,11 @@ public class Board {
     
     public int getCell(int cellX, int cellY) {
         return this.board[cellX][cellY];
+    }
+
+    // Return the cell number for coordinates, i.e., (0,0) is cell 0 and (1,0) is cell 3
+    public int getCellNumber(int cellX, int cellY) {
+        return cellX*this.boardSize() + cellY;
     }
 
     /* setCellOnce - Set (cellX, cellY) to value if-and-only-if it hasn't been set before.

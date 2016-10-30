@@ -26,17 +26,16 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
-    compile 'org.slf4j:slf4j-api:1.7.21'
-
-    // The web ui uses Spark
+    // The web ui uses Spark + freemarker
     compile "com.sparkjava:spark-core:2.5"
+    compile "com.sparkjava:spark-template-freemarker:2.3"
+    
+    // The production code uses the SLF4J logging API at compile time
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.21'
 
-    // Declare the dependency for your favourite test framework you want to use in your tests.
-    // TestNG is also supported by the Gradle Test task. Just change the
-    // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
-    // 'test.useTestNG()' to your build script.
+    // junit for tests; mockito for mocks
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.+"
 }
 
 // We want to print all the tests that fail, so that Travis will show us actionable output
@@ -66,4 +65,7 @@ check.dependsOn jacocoTestReport
 // Add support for system.in during runtime of java application
 run{
     standardInput = System.in
+    if ( project.hasProperty("appArgs") ) {
+        args Eval.me(appArgs)
+    }
 }

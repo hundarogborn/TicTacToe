@@ -24,13 +24,21 @@ $ git clone https://github.com/hundarogborn/TicTacToe.git
 # Building, testing and running the application
 
 To build the application and run the test suite:
+
 ```shell
 $ bin/build 
 ```
 
-To run the application locally:
+To run the web application locally:
+
+```shell
+$ bin/run_web
 ```
-$ bin/run
+
+To run the command-line application locally:
+
+```shell
+$ bin/run_cli
 ```
 
 # CI
