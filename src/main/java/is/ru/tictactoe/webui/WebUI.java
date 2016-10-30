@@ -15,8 +15,8 @@ import is.ru.tictactoe.Engine;
 
 public class WebUI {
 
-    private static final String SESSION_NAME = "username";
-    
+    private static final String USERNAME = "username";
+
     public WebUI(int port) {
         port(port);
         // Serve static files from web directory
@@ -38,7 +38,7 @@ public class WebUI {
         // Example on session state
         get("/", (request, response) -> {
                 // First; see if a user has entered his name
-                String name = request.session().attribute(SESSION_NAME);
+                String name = request.session().attribute(USERNAME);
                 if(name == null) {
                     return new ModelAndView(null, "name_form.ftl");
                 }
@@ -103,7 +103,7 @@ public class WebUI {
         post("/entry", (request, response) -> {
                 String name = request.queryParams("name");
                 if (name != null) {
-                    request.session().attribute(SESSION_NAME, name);
+                    request.session().attribute(USERNAME, name);
                 }
                 response.redirect("/");
                 return null;
