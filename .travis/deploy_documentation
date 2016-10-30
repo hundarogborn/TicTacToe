@@ -6,10 +6,13 @@ set -e
 # Deploy documentation to the gh-pages branch of our repo if:
 # - We're building master.
 # - We're on our own repo; not a fork.
+# We'll always build the documentation however
+
+bin/build_doc
 
 #if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
 if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" == "true" ] || [ "$TRAVIS_BRANCH" != "feat/doc-to-github" ]; then
-   echo "Not building documentation; we're not on master"
+   echo "Not pushing documentation; we're not on master"
    exit 0; # 0, because we don't want to fail the build
 fi
 
