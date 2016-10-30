@@ -22,11 +22,11 @@ public class Game {
 <span class="fc" id="L22">    }</span>
 
     public final Board getBoard() {
-<span class="nc" id="L25">        return this.board;</span>
+<span class="fc" id="L25">        return this.board;</span>
     }
 
     public final int getMoves() {
-<span class="nc" id="L29">        return moves;</span>
+<span class="fc" id="L29">        return moves;</span>
     }
 
     /* makeMove - Mark cell (X, Y) as played by player.
@@ -48,9 +48,9 @@ public class Game {
 <span class="fc" id="L48">    }</span>
 
     public int getCell(int cellX, int cellY) {
-<span class="nc bnc" id="L51" title="All 8 branches missed.">    	if ((cellX &lt; 0 &amp;&amp;  cellX &gt;= 3) &amp;&amp; (cellY &lt; 0 &amp;&amp; cellY &gt;= 3))</span>
-<span class="nc" id="L52">    		throw new java.lang.IllegalArgumentException(&quot;Illegal cell&quot;);</span>
-<span class="nc" id="L53">    	return board.getCell(cellX, cellY);</span>
+<span class="fc bfc" id="L51" title="All 8 branches covered.">    	if ((cellX &lt; 0 ||  cellX &gt;= 3) || (cellY &lt; 0 || cellY &gt;= 3))</span>
+<span class="fc" id="L52">    		throw new java.lang.IllegalArgumentException(&quot;Illegal cell&quot;);</span>
+<span class="fc" id="L53">    	return board.getCell(cellX, cellY);</span>
     }
     
     private void validatePlayer(int playerId) {
