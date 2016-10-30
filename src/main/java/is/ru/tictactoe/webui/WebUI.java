@@ -28,43 +28,8 @@ public class WebUI {
     }
 
     private void setupRoutes() {
+        get("/", WebUI::rootGetHandler, new FreeMarkerEngine());
         get("/reset", WebUI::resetGameHandler);
-        
-        // Example on session state
-        get("/", (request, response) -> {
-                // First; see if a user has entered his name
-                String name = request.session().attribute(USERNAME);
-                if(name == null) {
-                    return new ModelAndView(null, "name_form.ftl");
-                }
-
-                Engine game = request.session().attribute("game");
-                if(game == null) {
-                    game = new Engine();
-                    request.session().attribute("game", game);
-                }
-
-                Map<String, Object> templateParams = new HashMap<>();
-                switch(game.winner()) {
-                case PLAYER_1:
-                    // Assume that player 1 is human
-                    templateParams.put("message", "CONGRATULATIONS!  YOU WON!");
-                    return new ModelAndView(templateParams, "game_results.ftl");
-                case PLAYER_2:
-                    templateParams.put("message", "YOU LOST! :-(");
-                    return new ModelAndView(templateParams, "game_results.ftl");
-                case STALE_MATE:
-                    templateParams.put("message", "Close - but no cigar; this was a tie");
-                    return new ModelAndView(templateParams, "game_results.ftl");
-                case GAME_IN_PROGRESS:
-                    break;
-                }
-
-                // Populate the board template
-                templateParams.put("board", game.getBoard());
-                return new ModelAndView(templateParams, "board.ftl");
-                
-            }, new FreeMarkerEngine());
 
         // Handle post; a player played a cell
         post("/", (request, response) -> {
@@ -109,6 +74,40 @@ public class WebUI {
             });
     }
 
+    public static ModelAndView rootGetHandler(Request request, Response response) {
+        // First; see if a user has entered his name
+        String name = request.session().attribute(USERNAME);
+        if(name == null) {
+            return new ModelAndView(null, "name_form.ftl");
+        }
+        
+        Engine game = request.session().attribute("game");
+        if(game == null) {
+            game = new Engine();
+            request.session().attribute("game", game);
+        }
+        
+        Map<String, Object> templateParams = new HashMap<>();
+        switch(game.winner()) {
+        case PLAYER_1:
+            // Assume that player 1 is human
+            templateParams.put("message", "CONGRATULATIONS!  YOU WON!");
+            return new ModelAndView(templateParams, "game_results.ftl");
+        case PLAYER_2:
+            templateParams.put("message", "YOU LOST! :-(");
+            return new ModelAndView(templateParams, "game_results.ftl");
+        case STALE_MATE:
+            templateParams.put("message", "Close - but no cigar; this was a tie");
+            return new ModelAndView(templateParams, "game_results.ftl");
+        case GAME_IN_PROGRESS:
+            break;
+        }
+        
+        // Populate the board template
+        templateParams.put("board", game.getBoard());
+        return new ModelAndView(templateParams, "board.ftl");
+    }
+    
     public static Object resetGameHandler(Request request, Response response) {
         request.session().removeAttribute("game");
         response.redirect("/");
