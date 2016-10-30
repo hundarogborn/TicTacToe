@@ -3,10 +3,6 @@ jdk:
 - oraclejdk8
 script: bin/build
 
-# We need to update Ruby in our build container, so that we can generate jekyll sites
-before_install:
-- rvm install 2.1.5
-
 # After every successful build, we want to run coverage reports and maybe deploy the documentation
 after_success:
   - bash <(curl -s https://codecov.io/bash)
