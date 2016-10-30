@@ -5,5 +5,4 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 "$SCRIPT_DIR/../gradlew" stage
 
-java -jar build/libs/TicTacToe-all.jar  web
-
+java -jar "$SCRIPT_DIR/../build/libs/TicTacToe-all.jar" web
