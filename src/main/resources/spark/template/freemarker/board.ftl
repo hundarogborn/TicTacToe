@@ -22,7 +22,11 @@
             <#if cell == -1>
               <td><input type="submit" name="${size*y+x}" value=" "></td>
             <#else>
-              <td>${cell}</td>
+              <#if cell == 1>
+              	<td>X</td>
+              <#else>
+                <td>O</td>
+              </#if>
             </#if>
           </#list>
       </tr>
