@@ -33,11 +33,7 @@ public class WebUI {
         get("/reset", WebUI::resetGameHandler);
         post("/entry", WebUI::entryPostHandler);
         post("/", WebUI::moveSubmissionHandler);
-                
-        
-        exception(Exception.class, (e, req, res) -> {
-                res.body(e.getMessage());
-            });
+        exception(Exception.class, WebUI::exceptionHandler);
     }
 
     public static Object entryPostHandler(Request request, Response response) {
@@ -122,4 +118,7 @@ public class WebUI {
         return null;
     }
 
+    public static void exceptionHandler(Exception e, Request request, Response response) {
+        response.body(e.getMessage());
+    }
 }
