@@ -9,7 +9,7 @@ REPO_ROOT=$(pwd)
 # - We're building master.
 # - We're on our own repo; not a fork.
 
-if [ "$TRAVIS_REPO_SLUG" == "hundarogborn/TicTacToe" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "hundarogborn/TicTacToe" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
 
     # Build the documentation
     bin/build_doc
