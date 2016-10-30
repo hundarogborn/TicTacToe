@@ -23,6 +23,10 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+// Add Selenium Setting
+sourceSets {
+     selenium
+}
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
@@ -36,6 +40,13 @@ dependencies {
     // junit for tests; mockito for mocks
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.+"
+	
+	// Application dependencies for Selenium
+	compile 'org.slf4j:slf4j-api:1.7.5'
+	seleniumCompile 'junit:junit:4.11'
+    //seleniumCompile 'org.seleniumhq.selenium:selenium-firefox-driver:3.0.1'
+    seleniumCompile 'org.seleniumhq.selenium:selenium-chrome-driver:3.0.1'
+
 }
 
 // We want to print all the tests that fail, so that Travis will show us actionable output
@@ -68,4 +79,9 @@ run{
     if ( project.hasProperty("appArgs") ) {
         args Eval.me(appArgs)
     }
+}
+
+task selenium(type: Test, dependsOn: shadowJar) {
+    testClassesDir = sourceSets.selenium.output.classesDir
+ classpath = sourceSets.selenium.runtimeClasspath
 }
