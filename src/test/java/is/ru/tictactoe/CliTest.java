@@ -29,36 +29,26 @@ public class CliTest {
 		int index = 1;
 		
 		System.out.printIn("Get cell cordinants for index 1");
-		Assert.assertEquals(1, cli.getCellCords(index));
+		Assert.assertEquals("0, 0", cli.getCellCords(index));
 	}
 	
 	@Test
 	public final void testPlayerGetsNewName() {
 		String name = "NN";
 		Player player = new Player(name);
-		assertEquals(name, player.name);
+		assertEquals("NN", player.name);
 	}
 
 	@Test
 	public final void testYCoordinatesCalculation() {	
-<<<<<<< HEAD
 
-		Assert.assertEquals(1, cli.setCordy(3));
-=======
-		Cli c = new Cli();
-		assertEquals(1, c.cordY(3));
->>>>>>> b2851c661c8fb4aa6acc7da5a5058a744a62ef9b
+		Assert.assertEquals(1, cli.cordY(3));
 	}
 	
 	@Test
 	public final void testXCoordinatesCalculation() {
-<<<<<<< HEAD
 
-		Assert.assertEquals(0, cli.setCordx(3));
-=======
-		Cli c = new Cli();
-		assertEquals(0, c.cordX(3));
->>>>>>> b2851c661c8fb4aa6acc7da5a5058a744a62ef9b
+		Assert.assertEquals(0, cli.cordX(3));
 	}
 	
 }
