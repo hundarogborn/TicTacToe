@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 import is.ru.tictactoe.SeleniumTestWrapper;
+import org.openqa.selenium.By;
   
   public class SeleniumTestWeb extends SeleniumTestWrapper {
       @Test
@@ -12,17 +13,15 @@ import is.ru.tictactoe.SeleniumTestWrapper;
           assertEquals("TicTacToe", driver.getTitle());
       }
   
-      @Test
-      public void assertFirstTest() {
-          driver.get(baseUrl);//"/config.html");
-          /*
-          1. Fill in some name (first name, last name)
-          2. Submit form.
-          3. Assert that form notifies of success ("Name set as: ...")
-          4. Navigate to page to get specific Joke
-          5. Enter a specific joke number
-          6. Assert the name is used in the joke.
-          */
-      }
-	  
+	  @Test
+	  public void testUntitled3() throws Exception {
+		driver.get(baseUrl);
+		assertEquals("TicTacToe", driver.getTitle());
+		driver.findElement(By.name("player1")).clear();
+		driver.findElement(By.name("player1")).sendKeys("Diddi");
+		driver.findElement(By.name("player2")).clear();
+		driver.findElement(By.name("player2")).sendKeys("Svenni");
+		driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+		assertEquals("TicTacToe", driver.getTitle());
+		}
   }
