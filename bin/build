@@ -23,6 +23,13 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 
+echo "Running code coverage tests..."
+"$SCRIPT_DIR/../gradlew" jacocoTestReport
+if [ $? -ne 0 ]; then
+    echoerr "Building code coverage reports failed"
+    exit 1;
+fi
+
 # Drop jar to build/libs
 echo "Creating release jar..."
 "$SCRIPT_DIR/../gradlew" shadowJar
