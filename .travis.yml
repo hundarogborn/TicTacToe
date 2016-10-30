@@ -4,6 +4,9 @@ jdk:
 script: bin/build
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    secure: YmZ4UHic+faNt/0YwII4sf/YcS11PWZhNiI4E+ZLtO3sCBlf6xZ7OvbC72fyiLz4Q22k/uPr+OZHdJsd7Ea/sSbYhaAx/r0tk8fmNzWQM+1EXrImDLw2P8bgVgmZyFU5Q97Tz9AdNxUdAWf3kjlq4QFLAV0/hV+XhpuiVC+rTfhxx5njwg29spqQ/SYQfVT5ReJRI2kGkmpxFj/XHM57P+uW42QhsmuAoawAiUU6ykz/ABbFlU5Lho9nNx4/0dUfzEwOeX8S0ExBWew+EhQMI/ssISUUsXp540ikHMyXsGEFCfgV1C+UqAifPKoVVz0BqbQc6KWpRZkQXLntUA7PsemdnNgP8RSItp6nxFr/eueD1/ch7Dahg3l/gjk7fatlHGe8PVWpG158sNIK3vNXpJ67vNNXH8P18OvaYOCX+3p71s77ib/5JsNQxfXApysicf+YoMQnb6EApuqA79TJNrFlQIYBl61C3LeNrRpKtgT7VupWmP0cfy51dJlE7jUrrdNaXtF5YAqv4EXhpsXiKdJ8N3/Y3Z3d2vzxjJRZxTrZow034Qg0TdColLR5Hqv5AwesqO+/uS5fl1Jhu0MwsY8PK+wr9wB0RT7WUz2+NbmeijYjVK3iQ+PNPZjZ1t/H/8CqI2+8+JxIj6ICL/Kb3rvqcxnaShMZMqlOVpknvUw=
 deploy:
   # Deploy artifacts to github
   - provider: releases
