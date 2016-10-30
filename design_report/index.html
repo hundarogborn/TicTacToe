@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TicTacToe</title>
+  <title>Design report</title>
   <meta name="description" content="TicTacToes developer central">
 
   <link rel="stylesheet" href="/TicTacToe/assets/main.css">
-  <link rel="canonical" href="https://hundarogborn.github.io/TicTacToe/">
+  <link rel="canonical" href="https://hundarogborn.github.io/TicTacToe/design_report/">
   <link rel="alternate" type="application/rss+xml" title="TicTacToe" href="/TicTacToe/feed.xml">
   
   
@@ -71,23 +71,47 @@
         <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title">TicTacToe</h1>
+    <h1 class="post-title">Design report</h1>
   </header>
 
   <div class="post-content">
-    <h1 id="javadocjavadoc"><a href="javadoc">Javadoc</a></h1>
+    <h1 id="tic-tac-toe-design-report">Tic-Tac-Toe design report</h1>
 
-<p>It’s generated automatically on merge to master, so it should be up to date</p>
+<p>Tic-Tac-Toe is a web application that allows a player to play
+Tic-Tac-Toe against a computer opponent.</p>
 
-<h1 id="code-coverage-reportscoverage"><a href="coverage">Code coverage reports</a></h1>
+<p>The application is composed of three major components:</p>
 
-<p>The coverage reports are generated automatically on merge to master.  You’ll probably want
-to see our <a href="https://codecov.io/gh/hundarogborn/TicTacToe">codecov-io</a> site, however.</p>
+<ul>
+  <li>
+    <p>The presentation layer</p>
+  </li>
+  <li>
+    <p>The Tic-Tac-Toe game engine</p>
+  </li>
+  <li>
+    <p>High-score persistence layer</p>
+  </li>
+</ul>
 
-<h1 id="test-reportstest"><a href="test">Test reports</a></h1>
+<p>All of them run within the same process; we do no RPC calls.</p>
 
-<p>The test reports are generated automatically on merge to master.  For your feature branches,
-you’ll probably want to use travis-ci directly.</p>
+<h1 id="presentation-layer">Presentation layer</h1>
+
+<p>The presentation layer is responsible for exposing the UI via HTTP.
+It’s implemented using Spark and stores as little state as possible.
+It utilizes the Tic-Tac-Toe engine to do gameplay and
+the high-score persistence layer to view and save high-scores.</p>
+
+<h1 id="the-game-engine">The Game Engine</h1>
+
+<p>The game engine is a library that allows playing of Tic-Tac-Toe.
+An UML diagram of the engine is attached.</p>
+
+<h1 id="high-score-persistence-layer">High-score persistence layer</h1>
+
+<p>Responsible for storing and displaying player high-scores.
+It utilizes a SQLite database, accessed using the Xerial library.</p>
 
 
   </div>
