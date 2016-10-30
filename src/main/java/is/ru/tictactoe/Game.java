@@ -48,7 +48,7 @@ public class Game {
     }
 
     public int getCell(int cellX, int cellY) {
-    	if ((cellX < 0 &&  cellX >= 3) && (cellY < 0 && cellY >= 3))
+    	if ((cellX < 0 ||  cellX >= 3) || (cellY < 0 || cellY >= 3))
     		throw new java.lang.IllegalArgumentException("Illegal cell");
     	return board.getCell(cellX, cellY);
     }
