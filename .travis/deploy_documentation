@@ -28,6 +28,7 @@ cd gh-pages
 if [ -e ./javadoc ]; then
     git rm -rf ./javadoc
 fi
+ls $HOME/*
 cp -Rf $HOME/build/docs/javadoc ./javadoc
 git add -f .
 git commit -m "Lastest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
