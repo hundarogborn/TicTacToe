@@ -8,6 +8,10 @@
   <body>
     <h1>TicTacToe</h1>
 	<p>Pick a cell</p>
+
+	<#assign playerName=playerName>
+	${playerName} - make a move!
+
     <form method="POST" action="/" />
     <table>
     <#assign size=board.boardSize()>
@@ -18,7 +22,11 @@
             <#if cell == -1>
               <td><input type="submit" name="${size*y+x}" value=" "></td>
             <#else>
-              <td>${cell}</td>
+              <#if cell == 1>
+              	<td>X</td>
+              <#else>
+                <td>O</td>
+              </#if>
             </#if>
           </#list>
       </tr>

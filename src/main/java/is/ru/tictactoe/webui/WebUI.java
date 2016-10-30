@@ -2,6 +2,7 @@ package is.ru.tictactoe.webui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import spark.ModelAndView;
 import spark.Redirect;
@@ -12,11 +13,14 @@ import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.*;
 
 import is.ru.tictactoe.Game;
+import is.ru.tictactoe.Player;
 import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
 
-    private static final String USERNAME = "username";
+    private static final String GAMETYPE = "unknown";
+    private static Player player1;
+    private static Player player2;
 
     public WebUI(int port) {
         port(port);
@@ -26,6 +30,10 @@ public class WebUI {
     
         // Debug option to see routes at  /debug/routeoverview/
         RouteOverview.enableRouteOverview();
+
+        player1 = new Player("");
+        player2 = new Player("");
+
     }
 
     private void setupRoutes() {
@@ -37,9 +45,14 @@ public class WebUI {
     }
 
     public static Object entryPostHandler(Request request, Response response) {
-        String name = request.queryParams("name");
-        if (name != null) {
-            request.session().attribute(USERNAME, name);
+        String type = request.queryParams("type");
+        if (type != null) {
+            request.session().attribute(GAMETYPE, type);
+            player1 = new Player(request.queryParams("player1"));
+            player2 = new Player(request.queryParams("player2"));
+            if (type.equals("pvc")) {
+            	player2.setHuman(false);
+            }
         }
         response.redirect("/");
         return null;
@@ -47,8 +60,8 @@ public class WebUI {
 
     public static ModelAndView rootGetHandler(Request request, Response response) {
         // First; see if a user has entered his name
-        String name = request.session().attribute(USERNAME);
-        if(name == null) {
+        String type = request.session().attribute(GAMETYPE);
+        if(type == null) {
             return new ModelAndView(null, "name_form.ftl");
         }
         
@@ -62,11 +75,16 @@ public class WebUI {
         switch(game.winner()) {
         case PLAYER_1:
             // Assume that player 1 is human
-            templateParams.put("message", "CONGRATULATIONS!  YOU WON!");
+            templateParams.put("message", "CONGRATULATIONS! "+ player1.getName() + " YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case PLAYER_2:
-            templateParams.put("message", "YOU LOST! :-(");
-            return new ModelAndView(templateParams, "game_results.ftl");
+        	if (player2.isHuman()) {
+        		templateParams.put("message", "CONGRATULATIONS! "+ player2.getName() + " YOU WON!");
+        		return new ModelAndView(templateParams, "game_results.ftl");
+        	} else {
+        		templateParams.put("message", "SORRY "+ player2.getName() + " YOU LOST!");
+        		return new ModelAndView(templateParams, "game_results.ftl");
+        	}
         case STALE_MATE:
             templateParams.put("message", "Close - but no cigar; this was a tie");
             return new ModelAndView(templateParams, "game_results.ftl");
@@ -76,6 +94,34 @@ public class WebUI {
         
         // Populate the board template
         templateParams.put("board", game.getBoard());
+
+        // Push player name to template
+        String playerName = "";
+        if (game.getMoves() % 2 == 0) {
+        	playerName = player1.getName();
+        } else {
+        	if (!player2.isHuman()) {
+        		boolean valid = false;
+        		Random ran = new Random();
+        		do {
+            		int cellNum = ran.nextInt(10);
+                    int y = cellNum / game.getBoard().boardSize();
+                    int x = cellNum % game.getBoard().boardSize();
+                	try {
+						game.makeMove(x, y, 2);
+						valid = true;
+						// Set player name for next round
+			        	playerName = player1.getName();
+					} catch (IllegalMoveException e) {
+						// do nothing - try again
+					}
+        		} while (!valid);
+        	} else {
+            	playerName = player2.getName();        		
+        	}
+        }
+        
+        templateParams.put("playerName", playerName);
         return new ModelAndView(templateParams, "board.ftl");
     }
 
@@ -101,7 +147,11 @@ public class WebUI {
         
         // Make the move
         try {
-            game.makeMove(x, y, 1);
+            if (game.getMoves() % 2 == 0) {
+            	game.makeMove(x, y, 1);
+            } else {
+            	game.makeMove(x, y, 2);
+            }
         } catch(IllegalMoveException e) {
             halt(400, "Out of bounds move");
         }

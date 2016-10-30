@@ -25,6 +25,10 @@ public class Game {
         return this.board;
     }
 
+    public final int getMoves() {
+        return moves;
+    }
+
     /* makeMove - Mark cell (X, Y) as played by player.
      * If cell has already been played or if cell index is out of bounds; throw IllegalMoveException.
      */
