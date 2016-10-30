@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Design report
-permalink: /design_report/
+title: Design
+permalink: /design/
 ---
 
 {% markdown ../design_report.md %}
