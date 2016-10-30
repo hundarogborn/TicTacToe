@@ -71,15 +71,20 @@ public class Cli {
 	// Translate index to x,y coordinates
 	private coordinates getCellCords(int index) {
 		coordinates cord = new coordinates();
-		cord.x = getCordx;	
-		
+	
+		cord.x = setCordx;	
+		cord.y = setCordy;	
 	//	cord.x = (index % 3);
 	//	cord.y = (index / 3);
 		return cord;
 	}
 
-	public getCordx(int index) {
+	public int setCordx(int index) {
 		return (index % 3);
+	}
+
+	public int setCordy(int index) {
+		return (index / 3);
 	}
 	
 
