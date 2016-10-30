@@ -1,10 +1,13 @@
 <!-- -*- mode: html -*- -->
 <html>
   <head>
-    <title>TicTacToe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>TicTacToe</title>
+	<link rel="stylesheet" type="text/css" href="site.css" />
   </head>
   <body>
-    <h1>Here, be board</h1>
+    <h1>TicTacToe</h1>
+	<p>Pick a cell</p>
     <form method="POST" action="/" />
     <table>
     <#assign size=board.boardSize()>
