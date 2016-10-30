@@ -82,7 +82,7 @@ public class WebUI {
         		templateParams.put("message", "CONGRATULATIONS! "+ player2.getName() + " YOU WON!");
         		return new ModelAndView(templateParams, "game_results.ftl");
         	} else {
-        		templateParams.put("message", "SORRY "+ player2.getName() + " YOU LOST!");
+        		templateParams.put("message", "SORRY "+ player1.getName() + " YOU LOST!");
         		return new ModelAndView(templateParams, "game_results.ftl");
         	}
         case STALE_MATE:
@@ -96,26 +96,26 @@ public class WebUI {
         templateParams.put("board", game.getBoard());
 
         // Push player name to template
+        // If computer turn - make random move
         String playerName = "";
         if (game.getMoves() % 2 == 0) {
         	playerName = player1.getName();
         } else {
         	if (!player2.isHuman()) {
-        		boolean valid = false;
         		Random ran = new Random();
+        		// Endless loop - will break out on successful move
         		do {
             		int cellNum = ran.nextInt(10);
                     int y = cellNum / game.getBoard().boardSize();
                     int x = cellNum % game.getBoard().boardSize();
                 	try {
 						game.makeMove(x, y, 2);
-						valid = true;
-						// Set player name for next round
-			        	playerName = player1.getName();
+			            response.redirect("/");
+			            return null;
 					} catch (IllegalMoveException e) {
 						// do nothing - try again
 					}
-        		} while (!valid);
+        		} while (true);
         	} else {
             	playerName = player2.getName();        		
         	}
