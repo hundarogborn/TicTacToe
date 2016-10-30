@@ -1,6 +1,7 @@
 package is.ru.tictactoe;
 
 import java.util.Scanner;
+import java.util.Random;
 import is.ru.tictactoe.Game.GameResult;
 
 public class Cli {
@@ -67,6 +68,18 @@ public class Cli {
 		println(line);
 	}
 
+	private int getGameType() {
+		println("");
+		println("What kind of game would you like?");
+		println("1. Player vs Player");
+		println("2. Player vs Computer");
+		while (!sc.hasNext("[12]")) {
+		    println("Please enter 1 or 2!");
+		    sc.next();
+		}
+		return Integer.parseInt(sc.next());
+	}
+
 	// Translate index to x,y coordinates
 	private coordinates getCellCords(int index) {
 		coordinates cord = new coordinates();
@@ -95,24 +108,55 @@ public class Cli {
 	
 	private void makeMove(int moves) {
 		boolean valid = false;
+		boolean human = false;
 
 		while(!valid) { 
 			// Check if player 1
 			if (moves % 2 == 1) {
 				print("Player " + p1.getName() + " move: ");
+				human = p1.isHuman();
 			} else {
 				print("Player " + p2.getName() + " move: ");
+				human = p2.isHuman();
 			}
 		
-			int index = sc.nextInt();
-			coordinates cord = getCellCords(index - 1);
-			try {
-				// Need to match moves to player 1 and 2
-				game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));
-				valid = true;
-			} catch (IllegalMoveException e) {
-				print("Try again!");
+			if(human) {
+				int index = sc.nextInt();
+				coordinates cord = getCellCords(index - 1);
+				try {
+					// Need to match moves to player 1 and 2
+					game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));
+					valid = true;
+				} catch (IllegalMoveException e) {
+					print("Try again!");
+				}
+			} else {
+				Random ran = new Random();
+				do {
+					print("..thinking.. ");
+					think();
+					int index = ran.nextInt(10);
+					coordinates cord = getCellCords(index - 1);
+					try {
+						game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));
+						println("" + index);
+						valid = true;
+					} catch (IllegalMoveException e) {
+						// do nothin - just try again
+					}
+				} while (!valid);
 			} 		
+		}
+	}
+
+	private void think() {
+		// Fake think time
+		Random ran = new Random();
+		int sleep = ran.nextInt(1000);
+		try {
+		    Thread.sleep(sleep);
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
 		}
 	}
 
@@ -128,8 +172,10 @@ public class Cli {
 	public void startGame() {
 
 		greeting();
+		int gameType = getGameType();
 		p1 = setPlayer(1);
 		p2 = setPlayer(2);
+		if (gameType == 2) p2.setHuman(false);
 		int moves = 0;
 		
 		while (hooked == true) {
