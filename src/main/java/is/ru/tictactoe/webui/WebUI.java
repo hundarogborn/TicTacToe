@@ -12,6 +12,7 @@ import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.*;
 
 import is.ru.tictactoe.Engine;
+import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
 
@@ -31,35 +32,8 @@ public class WebUI {
         get("/", WebUI::rootGetHandler, new FreeMarkerEngine());
         get("/reset", WebUI::resetGameHandler);
         post("/entry", WebUI::entryPostHandler);
-
-        // Handle post; a player played a cell
-        post("/", (request, response) -> {
-                Engine game = request.session().attribute("game");
-                if(game == null) {
-                    // Player is posting without a game session.
-                    // Have him sign up.
-                    response.redirect("/");
-                    return null;
-                }
-
-                // Find the cell played
-                if(request.queryParams().size() != 1) {
-                    // Illegal request
-                    halt(400, "Illegal request");
-                }
-
-                // Decode the cell number into (y, x) coordinates
-                int cellNum = Integer.parseInt(request.queryParams().iterator().next());
-                int y = cellNum / game.getBoard().boardSize();
-                int x = cellNum % game.getBoard().boardSize();
-
-                // Make the move
-                game.makeMove(x, y, 1);
+        post("/", WebUI::moveSubmissionHandler);
                 
-                response.redirect("/");
-                return null;
-            });
-        
         
         exception(Exception.class, (e, req, res) -> {
                 res.body(e.getMessage());
@@ -107,6 +81,34 @@ public class WebUI {
         // Populate the board template
         templateParams.put("board", game.getBoard());
         return new ModelAndView(templateParams, "board.ftl");
+    }
+
+    public static Object moveSubmissionHandler(Request request, Response response) throws IllegalMoveException {
+        // Handle post; a player played a cell
+        Engine game = request.session().attribute("game");
+        if(game == null) {
+            // Player is posting without a game session.
+            // Have him sign up.
+            response.redirect("/");
+            return null;
+        }
+        
+        // Find the cell played
+        if(request.queryParams().size() != 1) {
+            // Illegal request
+            halt(400, "Illegal request");
+        }
+
+        // Decode the cell number into (y, x) coordinates
+        int cellNum = Integer.parseInt(request.queryParams().iterator().next());
+        int y = cellNum / game.getBoard().boardSize();
+        int x = cellNum % game.getBoard().boardSize();
+        
+        // Make the move
+        game.makeMove(x, y, 1);
+        
+        response.redirect("/");
+        return null;
     }
     
     public static Object resetGameHandler(Request request, Response response) {
