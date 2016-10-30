@@ -34,6 +34,16 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public final void testConstructor(){
+	    System.out.println("Check Player constructor");
+	    Player a = new Player("Test");
+	    a.addWin();
+	    Player b = new Player(a);
+	    Assert.assertEquals("Test", b.getName());
+	    Assert.assertEquals(1, b.getWins());
+	}
+	
+	@Test
 	// get set win, looses and draws of the player
 	public final void testgetResults(){
 		

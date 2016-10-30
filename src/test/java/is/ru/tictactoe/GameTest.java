@@ -72,6 +72,22 @@ public class GameTest {
         }
         
     }
+    
+    @Test
+    public final void testBoardConstructor(){
+        System.out.println("Check constructor");
+        Board b = new Board();
+        Game g = new Game(b);
+        assertEquals(b, g.getBoard());
+    }
+    
+    @Test
+    public final void testGetMoves() throws IllegalMoveException{
+        System.out.println("Check getMoves()");
+        Game g = new Game();
+        g.makeMove(1, 1, 1);
+        assertEquals(1, g.getMoves());
+    }
 
     @Test
     public final void testWinner() throws IllegalMoveException {
