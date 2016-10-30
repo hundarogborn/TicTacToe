@@ -46,3 +46,26 @@ To have it listen on something else, export the PORT environment variable:
 $ export PORT=1234 
 $ java -jar path/to/tictactoe.jar web
 ```
+
+# Development and staging environments
+
+We utilize a few different services for our app, each with it's own access control etc.
+Here's a list of people that can grant access to each.
+
+
+## GitHub
+
+All members of our team are organization owners, so feel free to approach anyone.
+
+## Heroku
+
+@sveinng has the credentials for Heroku
+
+## Travis
+
+All github org owners can access and administer our travis-ci account.
+
+## CodeCov.io
+
+@sveinng has the credentials for CodeCov.
+
