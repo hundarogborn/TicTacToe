@@ -74,10 +74,10 @@ public class WebUI {
         switch(game.winner()) {
         case PLAYER_1:
             // Assume that player 1 is human
-            templateParams.put("message", "CONGRATULATIONS!  YOU WON!");
+            templateParams.put("message", "CONGRATULATIONS! "+ player1.getName() + "  YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case PLAYER_2:
-            templateParams.put("message", "YOU LOST! :-(");
+            templateParams.put("message", "CONGRATULATIONS! "+ player2.getName() + "  YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case STALE_MATE:
             templateParams.put("message", "Close - but no cigar; this was a tie");
