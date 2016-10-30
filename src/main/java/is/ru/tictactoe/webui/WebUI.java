@@ -91,7 +91,6 @@ public class WebUI {
         
         // Find the cell played
         if(request.queryParams().size() != 1) {
-            // Illegal request
             halt(400, "Illegal request");
         }
 
