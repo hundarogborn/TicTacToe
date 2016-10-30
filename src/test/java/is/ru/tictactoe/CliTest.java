@@ -6,11 +6,9 @@ import org.junit.Test;
 
 public class CliTest {
 
-
-//	Cli c = new Cli();
-
+/*
 	@Test
-	public final void testPrintBoard() {
+	public final void testPrintBoar() {
 		char[] cell = new char[9];
 	for(int index = 0; index < 9; index++) 
 		coordinates cord = getCellCords(index);
@@ -24,14 +22,15 @@ public class CliTest {
 			asserEquals(' ', cell[index]);
 
 	}
-
-	
-	//Player player = new Player(3);
-	/*
-	@Test
-	public final void testSetPlayer(1) {
-		assertEquals("Player 1", Player + num + name);
-	}
 */
 
+
+	//Player player = new Player(3);
+	
+	@Test
+	public final void testPlayerGetsNewName() {
+		String name = "NN";
+		Player player = new Player(name);
+		assertEquals("NN", player.name);
+	}
 }
