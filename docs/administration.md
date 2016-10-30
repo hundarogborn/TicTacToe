@@ -1,0 +1,48 @@
+Administering TicTacToe
+=======================
+
+Some of the details here overlap with the develop documentation, so you might want to take
+a look at that as well.
+
+# Prerequisites
+
+We use Java 8 features, so ensure that you have Java 8 runtime installed.
+You can find it here: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
+
+# Releases
+
+Our releases can be found on [our GitHub releases page](https://github.com/hundarogborn/TicTacToe/releases).
+
+Each release is simply an "uberjar", a self-contained JAR for minimal overhead.
+
+# Running
+
+TicTacToe can be run in two ways:
+
+- As a command line application where you interactively play
+
+- As a web application
+
+## Running the CLI app
+
+Download an uberjar from our release page and:
+
+```
+$ java -jar path/to/tictactoe.jar cli
+```
+
+## Running the Web app
+
+Download an uberjar from oru release page and:
+
+```
+$ java -jar path/to/tictactoe.jar web
+```
+
+By default, the application listens on tcp/4567.
+
+To have it listen on something else, export the PORT environment variable:
+```
+$ export PORT=1234 
+$ java -jar path/to/tictactoe.jar web
+```
