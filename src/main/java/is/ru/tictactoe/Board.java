@@ -23,6 +23,11 @@ public class Board implements java.io.Serializable {
         return this.board[cellX][cellY];
     }
 
+    // Return the cell number for coordinates, i.e., (0,0) is cell 0 and (1,0) is cell 3
+    public int cellNumber(int cellX, int cellY) {
+        return cellX*this.boardSize() + cellY;
+    }
+
     /* setCellOnce - Set (cellX, cellY) to value if-and-only-if it hasn't been set before.
      * If the cell has already been set, throw IllegalStateException
      */

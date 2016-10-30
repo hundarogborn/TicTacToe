@@ -48,5 +48,21 @@ public class BoardTest {
         b.setCellOnce(2, 2, 1);
         assertEquals(1, b.getCell(2, 2));
     }
+
+    // Assert that we can get the cell number from coordinates
+    @Test
+    public final void testCoordinatesToCellNumber() {
+        Board b = new Board();
+
+        assertEquals(0, b.cellNumber(0, 0));
+        assertEquals(1, b.cellNumber(0, 1));
+        assertEquals(2, b.cellNumber(0, 2));
+        assertEquals(3, b.cellNumber(1, 0));
+        assertEquals(4, b.cellNumber(1, 1));
+        assertEquals(5, b.cellNumber(1, 2));
+        assertEquals(6, b.cellNumber(2, 0));
+        assertEquals(7, b.cellNumber(2, 1));
+        assertEquals(8, b.cellNumber(2, 2));
+    }
 }
 
