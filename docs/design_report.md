@@ -31,5 +31,6 @@ An UML diagram of the engine is attached.
 Responsible for storing and displaying player high-scores.
 It utilizes a SQLite database, accessed using the Xerial library.
 
+# Class diagram
 
-
+https://cloud.githubusercontent.com/assets/22728270/19839774/19ae88b8-9ee8-11e6-8430-6407a10a0201.png
