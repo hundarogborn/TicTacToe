@@ -15,11 +15,6 @@ if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUES
    exit 0; # 0, because we don't want to fail the build
 fi
 
-# Update the ruby used in the container.  We do it here, instead of 'before_install:' in travis.yml, to
-# not affect the runtime of every single build.
-rvm install 2.1.5
-rvm list
-
 # Build the documentation
 bin/build_doc
 
