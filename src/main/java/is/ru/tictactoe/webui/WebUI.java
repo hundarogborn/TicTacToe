@@ -83,7 +83,7 @@ public class WebUI {
         return new ModelAndView(templateParams, "board.ftl");
     }
 
-    public static Object moveSubmissionHandler(Request request, Response response) throws IllegalMoveException {
+    public static Object moveSubmissionHandler(Request request, Response response) {
         // Handle post; a player played a cell
         Engine game = request.session().attribute("game");
         if(game == null) {
@@ -105,7 +105,11 @@ public class WebUI {
         int x = cellNum % game.getBoard().boardSize();
         
         // Make the move
-        game.makeMove(x, y, 1);
+        try {
+            game.makeMove(x, y, 1);
+        } catch(IllegalMoveException e) {
+            halt(400, "Out of bounds move");
+        }
         
         response.redirect("/");
         return null;
