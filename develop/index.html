@@ -37,10 +37,6 @@
       <div class="trigger">
         
           
-          <a class="page-link" href="/TicTacToe/about/">About</a>
-          
-        
-          
           <a class="page-link" href="/TicTacToe/design_report/">Design report</a>
           
         
@@ -100,19 +96,19 @@ $ git clone https://github.com/hundarogborn/TicTacToe.git
 
 <p>To build the application and run the test suite:</p>
 
-<p><code>shell
+<p><code>
 $ bin/build 
 </code></p>
 
 <p>To run the web application locally:</p>
 
-<p><code>shell
+<p><code>
 $ bin/run_web
 </code></p>
 
 <p>To run the command-line application locally:</p>
 
-<p><code>shell
+<p><code>
 $ bin/run_cli
 </code></p>
 
@@ -203,9 +199,13 @@ yourself that you will get the call if this breaks prod.</p>
 <p>To prepare a release, simply tag master and push the tag.
 Travis-CI will automatically push the release to the <a href="https://github.com/hundarogborn/TicTacToe/releases">GitHub release page</a>, where it’ll be available for download</p>
 
-<p><code>shell
+<p><code>
 $ git checkout &lt;commit you want to tag&gt;
+</code>
+<code>
 $ git tag -a v0.0.1 -m "A fantastic release"
+</code>
+<code>
 $ git push --tags
 </code></p>
 
