@@ -72,6 +72,55 @@ public class GameTest {
         }
         
     }
+    
+    @Test
+    public final void testGetCell() throws IllegalArgumentException{
+        System.out.println("Check getMoves()");
+        Game g = new Game();
+        assertEquals(-1, g.getCell(0,0));
+        
+        System.out.println("Check getMoves()");
+        try {
+            g.getCell(-1,0);
+            fail();
+        } catch(IllegalArgumentException ex) {
+            assertEquals("Illegal cell", ex.getMessage());
+        }
+        try {
+            g.getCell(3,0);
+            fail();
+        } catch(IllegalArgumentException ex) {
+            assertEquals("Illegal cell", ex.getMessage());
+        }
+        try {
+            g.getCell(0,-1);
+            fail();
+        } catch(IllegalArgumentException ex) {
+            assertEquals("Illegal cell", ex.getMessage());
+        }
+        try {
+            g.getCell(0,3);
+            fail();
+        } catch(IllegalArgumentException ex) {
+            assertEquals("Illegal cell", ex.getMessage());
+        }
+    }
+    
+    @Test
+    public final void testBoardConstructor(){
+        System.out.println("Check constructor");
+        Board b = new Board();
+        Game g = new Game(b);
+        assertEquals(b, g.getBoard());
+    }
+    
+    @Test
+    public final void testGetMoves() throws IllegalMoveException{
+        System.out.println("Check getMoves()");
+        Game g = new Game();
+        g.makeMove(1, 1, 1);
+        assertEquals(1, g.getMoves());
+    }
 
     @Test
     public final void testWinner() throws IllegalMoveException {
