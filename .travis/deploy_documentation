@@ -26,10 +26,8 @@ git clone --quiet --branch=gh-pages https://${GH_PAGES_TOKEN}@github.com/hundaro
 
 # Commit and Push the Changes
 cd gh-pages
-if [ -e ./javadoc ]; then
-    git rm -rf ./javadoc
-fi
-cp -Rf "$REPO_ROOT/build/docs/javadoc" ./javadoc
+git rm -rf ./*
+cp -Rf "$REPO_ROOT/build/docs/site/*" ./
 git add -f .
-git commit -m "Lastest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+git commit -m "Site build for successful build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
 git push -fq origin gh-pages > /dev/null
