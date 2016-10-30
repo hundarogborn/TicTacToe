@@ -105,7 +105,7 @@ The basic workflow is:
 To prepare a release, simply tag master and push the tag.
 Travis-CI will automatically push the release to the [GitHub release page](https://github.com/hundarogborn/TicTacToe/releases), where it'll be available for download
 
-```
+```shell
 $ git checkout <commit you want to tag>
 $ git tag -a v0.0.1 -m "A fantastic release"
 $ git push --tags
