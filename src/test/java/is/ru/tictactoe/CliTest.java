@@ -18,9 +18,9 @@ public class CliTest {
 	
 	@Test
 	public final void testPlayerGetsNewName() {
-		String name = "NN";
+		String name = "Jón Jónsson";
 		Player player = new Player(name);
-		assertEquals("NN", player.name);
+		Assert.assertEquals("Jón Jónsson", player.name);
 	}
 
 	@Test
