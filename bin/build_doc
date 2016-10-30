@@ -14,6 +14,7 @@ function echoerr() {
 }
 
 # Build javadoc
+echo "Building javadoc"
 "$SCRIPT_DIR/../gradlew" javadoc
 if [ $? -ne 0 ]; then
     echoerr "Building javadoc failed"
@@ -21,6 +22,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Build our site
+echo "Building jekyll site"
 cd "$SCRIPT_DIR/../docs/site"
 bundle
 jekyll build -d "$BUILD_DIR/docs/site"
@@ -28,6 +30,5 @@ if [ $? -ne 0 ]; then
     echoerr "Building the documentation site failed"
     exit 1;
 fi
-
-mv "$BUILD_DIR/docs/javadoc" "$BUILD_DIR/docs/site/javadoc"
-
+mv "$BUILD_DIR/docs/javadoc" "$BUILD_DIR/docs/site/"
+echo "Built jekyll site!"

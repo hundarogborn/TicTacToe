@@ -27,8 +27,7 @@ git clone --quiet --branch=gh-pages https://${GH_PAGES_TOKEN}@github.com/hundaro
 # Commit and Push the Changes
 cd gh-pages
 git rm -rf ./*
-ls -l "$REPO_ROOT/build/docs/*"
-cp -Rf "$REPO_ROOT/build/docs/site/*" ./
+cp -Rf $REPO_ROOT/build/docs/site/* ./
 git add -f .
 git commit -m "Site build for successful build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
 git push -fq origin gh-pages > /dev/null
