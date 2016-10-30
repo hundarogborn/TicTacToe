@@ -26,7 +26,8 @@ fi
 echo "Running code coverage tests..."
 "$SCRIPT_DIR/../gradlew" jacocoTestReport
 if [ $? -ne 0 ]; then
-    echoerr "Code coverage tests failed - continue ..."
+    echoerr "Building code coverage reports failed"
+    exit 1;
 fi
 
 # Drop jar to build/libs

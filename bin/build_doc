@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+# Find the directory containing this script, so that executing the
+# script works as expected if the project directory isn't the CWD.
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+BUILD_DIR="$SCRIPT_DIR/../build"
+
+# Echo errors to stderr
+function echoerr() {
+    >&2 echo $@;
+}
+
+# Build our site
+echo "Building jekyll site"
+pushd "$SCRIPT_DIR/../docs/site"
+bundle
+jekyll build -d "$BUILD_DIR/docs/site"
+if [ $? -ne 0 ]; then
+    echoerr "Building the documentation site failed"
+    exit 1;
+fi
+popd
+
+# Build javadoc and move to site
+echo "Building javadoc"
+"$SCRIPT_DIR/../gradlew" javadoc
+if [ $? -ne 0 ]; then
+    echoerr "Building javadoc failed"
+    exit 1;
+fi
+mv "$BUILD_DIR/docs/javadoc" "$BUILD_DIR/docs/site/"
+
+# We need to have test output to have coverage data
+if [ ! -d "$BUILD_DIR/reports/tests/test" ]; then
+    "$SCRIPT_DIR/../gradlew" test
+fi
+mv "$BUILD_DIR/reports/tests/test" "$BUILD_DIR/docs/site/"
+
+# Build coverage report and move to site
+echo "Running code coverage tests..."
+"$SCRIPT_DIR/../gradlew" jacocoTestReport
+if [ $? -ne 0 ]; then
+    echoerr "Building code coverage reports failed"
+    exit 1;
+fi
+mv "$BUILD_DIR/reports/coverage" "$BUILD_DIR/docs/site/"
+
+echo "Built jekyll site!"
+
