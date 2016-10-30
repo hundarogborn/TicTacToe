@@ -3,13 +3,11 @@
 # Fail immediately on non-zero commands
 set -e
 
+REPO_ROOT=$(pwd)
+
 # Deploy documentation to the gh-pages branch of our repo if:
 # - We're building master.
 # - We're on our own repo; not a fork.
-# We'll always build the documentation however
-
-bin/build_doc
-REPO_ROOT=$(pwd)
 
 #if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
 if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" == "true" ] || [ "$TRAVIS_BRANCH" != "feat/doc-to-github" ]; then
@@ -22,6 +20,9 @@ fi
 rvm install 2.1.5
 rvm list
 
+# Build the documentation
+bin/build_doc
+
 # Get to the Travis build directory, configure git and clone the repo
 cd $HOME
 git config --global user.email "travis@travis-ci.org"
@@ -31,6 +32,7 @@ git clone --quiet --branch=gh-pages https://${GH_PAGES_TOKEN}@github.com/hundaro
 # Commit and Push the Changes
 cd gh-pages
 git rm -rf ./*
+ls -l "$REPO_ROOT/build/docs/*"
 cp -Rf "$REPO_ROOT/build/docs/site/*" ./
 git add -f .
 git commit -m "Site build for successful build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
