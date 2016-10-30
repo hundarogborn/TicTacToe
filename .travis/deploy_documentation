@@ -9,24 +9,25 @@ REPO_ROOT=$(pwd)
 # - We're building master.
 # - We're on our own repo; not a fork.
 
-if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
-   echo "Not pushing documentation; we're not on master"
-   exit 0; # 0, because we don't want to fail the build
+if [ "$TRAVIS_REPO_SLUG" == "hundarogborn/TicTacToe" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+
+    # Build the documentation
+    bin/build_doc
+
+    # Get to the Travis build directory, configure git and clone the repo
+    cd $HOME
+    git config --global user.email "travis@travis-ci.org"
+    git config --global user.name "travis-ci worker"
+    git clone --quiet --branch=gh-pages https://${GH_PAGES_TOKEN}@github.com/hundarogborn/TicTacToe gh-pages > /dev/null
+    
+    # Commit and Push the Changes
+    cd gh-pages
+    git rm -rf ./*
+    cp -Rf $REPO_ROOT/build/docs/site/* ./
+    git add -f .
+    git commit -m "Site build for successful build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
+    git push -fq origin gh-pages > /dev/null
+else
+    echo "Not pushing documentation; we're not on master"
+    exit 0; # 0, because we don't want to fail the build
 fi
-
-# Build the documentation
-bin/build_doc
-
-# Get to the Travis build directory, configure git and clone the repo
-cd $HOME
-git config --global user.email "travis@travis-ci.org"
-git config --global user.name "travis-ci worker"
-git clone --quiet --branch=gh-pages https://${GH_PAGES_TOKEN}@github.com/hundarogborn/TicTacToe gh-pages > /dev/null
-
-# Commit and Push the Changes
-cd gh-pages
-git rm -rf ./*
-cp -Rf $REPO_ROOT/build/docs/site/* ./
-git add -f .
-git commit -m "Site build for successful build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
-git push -fq origin gh-pages > /dev/null
