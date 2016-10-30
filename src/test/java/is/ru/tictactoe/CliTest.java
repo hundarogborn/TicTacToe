@@ -6,6 +6,32 @@ import org.junit.Test;
 
 public class CliTest {
 	
+	private Cli cli = new Cli ();
+	
+	@Test
+	public final void testPrint() {
+		String string = "Testing testing, 1, 2, 3";
+		
+		System.out.printIn("Testing print function");
+		Assert.assertEquals("Testing testing, 1, 2, 3", cli.print(string));
+	}
+	
+	@Test
+	public final void testPrintIn() {
+		String string = "Testing testing, 1, 2, 3";
+		
+		System.out.printIn("Testing printin function");
+		Assert.assertEquals("Testing testing, 1, 2, 3", cli.printIn(string));
+	}
+	
+	@Test
+	public final void testGetCellCords() {
+		int index = 1;
+		
+		System.out.printIn("Get cell cordinants for index 1");
+		Assert.assertEquals(1, cli.getCellCords(index));
+	}
+	
 	@Test
 	public final void testPlayerGetsNewName() {
 		String name = "NN";
@@ -15,13 +41,14 @@ public class CliTest {
 
 	@Test
 	public final void testYCoordinatesCalculation() {	
-		Cli c = new Cli();
-		assertEquals(1, c.setCordy(3));
+
+		Assert.assertEquals(1, cli.setCordy(3));
 	}
 	
 	@Test
 	public final void testXCoordinatesCalculation() {
-		Cli c = new Cli();
-		assertEquals(0, c.setCordx(3));
+
+		Assert.assertEquals(0, cli.setCordx(3));
 	}
+	
 }
