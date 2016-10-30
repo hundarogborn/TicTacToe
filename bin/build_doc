@@ -33,6 +33,12 @@ if [ $? -ne 0 ]; then
 fi
 mv "$BUILD_DIR/docs/javadoc" "$BUILD_DIR/docs/site/"
 
+# We need to have test output to have coverage data
+if [ ! -d "$BUILD_DIR/reports/tests/test" ]; then
+    "$SCRIPT_DIR/../gradlew" test
+fi
+mv "$BUILD_DIR/reports/tests/test" "$BUILD_DIR/docs/site/"
+
 # Build coverage report and move to site
 echo "Running code coverage tests..."
 "$SCRIPT_DIR/../gradlew" jacocoTestReport
@@ -41,7 +47,6 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 mv "$BUILD_DIR/reports/coverage" "$BUILD_DIR/docs/site/"
-mv "$BUILD_DIR/reports/tests/test" "$BUILD_DIR/docs/site/"
 
 echo "Built jekyll site!"
 
