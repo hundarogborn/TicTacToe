@@ -1,16 +1,33 @@
 #!/bin/bash
 
+set -e
+
 # Find the directory containing this script, so that executing the
 # script works as expected if the project directory isn't the CWD.
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+BUILD_DIR="$SCRIPT_DIR/../build"
 
 # Echo errors to stderr
 function echoerr() {
     >&2 echo $@;
 }
 
+# Build javadoc
 "$SCRIPT_DIR/../gradlew" javadoc
 if [ $? -ne 0 ]; then
     echoerr "Building javadoc failed"
     exit 1;
 fi
+
+# Build our site
+cd "$SCRIPT_DIR/../docs/site"
+bundle
+jekyll build -d "$BUILD_DIR/docs/site"
+if [ $? -ne 0 ]; then
+    echoerr "Building the documentation site failed"
+    exit 1;
+fi
+
+mv "$BUILD_DIR/docs/javadoc" "$BUILD_DIR/docs/site/javadoc"
+
