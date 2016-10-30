@@ -41,6 +41,12 @@ public class CliTest {
 	}
 	
 
+	@Test
+	public final void testXCoordinatesCalculation() {
+		Cli c = new Cli();
+		assertEquals(0, c.setCordx(3));
+	}
+
 /*
 	@Test
 	public final void testIfPlayAgainReturnsFalseIfNIsTyped() {
