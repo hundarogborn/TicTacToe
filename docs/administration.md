@@ -13,7 +13,8 @@ You can find it here: http://www.oracle.com/technetwork/java/javase/downloads/jr
 
 Our releases can be found on [our GitHub releases page](https://github.com/hundarogborn/TicTacToe/releases).
 
-Each release is simply an "uberjar", a self-contained JAR for minimal overhead.
+Each release is simply an "uberjar", a self-contained JAR for minimal overhead, so you do not need to install
+any dependencies.
 
 # Running
 
