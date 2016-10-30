@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Game.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TicTacToe</a> &gt; <a href="index.source.html" class="el_package">is.ru.tictactoe</a> &gt; <span class="el_source">Game.java</span></div><h1>Game.java</h1><pre class="source lang-java linenums">package is.ru.tictactoe;
+
+public class Game {
+
+    private final static int MAX_PLAYERS = 2;
+    private Board board;
+<span class="fc" id="L7">    private int moves = 0;</span>
+    
+<span class="pc" id="L9">    public enum GameResult {</span>
+<span class="fc" id="L10">        PLAYER_1,</span>
+<span class="fc" id="L11">        PLAYER_2,</span>
+<span class="fc" id="L12">        STALE_MATE,</span>
+<span class="fc" id="L13">        GAME_IN_PROGRESS,</span>
+    }
+    
+    public Game() {
+<span class="fc" id="L17">        this(new Board());</span>
+<span class="fc" id="L18">    }</span>
+
+<span class="fc" id="L20">    public Game(Board b) {</span>
+<span class="fc" id="L21">        this.board = b;</span>
+<span class="fc" id="L22">    }</span>
+
+    public final Board getBoard() {
+<span class="nc" id="L25">        return this.board;</span>
+    }
+
+    /* makeMove - Mark cell (X, Y) as played by player.
+     * If cell has already been played or if cell index is out of bounds; throw IllegalMoveException.
+     */
+    public void makeMove(int cellX, int cellY, int playerId) throws IllegalMoveException {
+        try {
+<span class="fc" id="L33">            validatePlayer(playerId);</span>
+<span class="fc" id="L34">            this.board.setCellOnce(cellX, cellY, playerId);</span>
+<span class="fc" id="L35">            this.moves++;</span>
+<span class="fc" id="L36">        } catch(IndexOutOfBoundsException e) {</span>
+<span class="fc" id="L37">            throw new IllegalMoveException(&quot;move is out of bounds&quot;);</span>
+<span class="fc" id="L38">        } catch(IllegalStateException e) {</span>
+<span class="fc" id="L39">            throw new IllegalMoveException(&quot;cell has already been played&quot;);</span>
+<span class="fc" id="L40">        } catch(IllegalArgumentException e) {</span>
+<span class="fc" id="L41">        	throw new IllegalMoveException(&quot;Illegal player&quot;);</span>
+<span class="fc" id="L42">        }</span>
+
+<span class="fc" id="L44">    }</span>
+
+    public int getCell(int cellX, int cellY) {
+<span class="nc bnc" id="L47" title="All 8 branches missed.">    	if ((cellX &lt; 0 &amp;&amp;  cellX &gt;= 3) &amp;&amp; (cellY &lt; 0 &amp;&amp; cellY &gt;= 3))</span>
+<span class="nc" id="L48">    		throw new java.lang.IllegalArgumentException(&quot;Illegal cell&quot;);</span>
+<span class="nc" id="L49">    	return board.getCell(cellX, cellY);</span>
+    }
+    
+    private void validatePlayer(int playerId) {
+<span class="fc bfc" id="L53" title="All 4 branches covered.">        if (playerId &lt;= 0 || playerId &gt; MAX_PLAYERS) {</span>
+<span class="fc" id="L54">            throw new java.lang.IllegalArgumentException(&quot;Illegal player&quot;);</span>
+        }
+<span class="fc" id="L56">    }</span>
+
+    public GameResult winner() {
+<span class="fc" id="L59">        int playerId = 0;</span>
+
+        // Check for horizontal wins
+<span class="fc" id="L62">        int boardSize = this.board.boardSize();</span>
+
+        // Check horizontal and vertical
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        for (int i = 0; i &lt; boardSize; i++) {</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">            if ( this.board.getCell(i, 0) &gt; 0 &amp;&amp;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">                 this.board.getCell(i, 0) == this.board.getCell(i, 1) &amp;&amp;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">                 this.board.getCell(i, 1) == this.board.getCell(i, 2)) {</span>
+<span class="fc" id="L69">                playerId = this.board.getCell(i, 0);</span>
+            }
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            else if ( this.board.getCell(0, i) &gt; 0 &amp;&amp;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                      this.board.getCell(0, i) == this.board.getCell(1, i) &amp;&amp;</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">                      this.board.getCell(1, i) == this.board.getCell(2, i)) {</span>
+<span class="fc" id="L74">                playerId = this.board.getCell(0, i);</span>
+            }
+        }
+        
+        // Check special cases (crosses)
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (this.board.getCell(1, 1) &gt; 0) {</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (this.board.getCell(2, 0) == this.board.getCell(1, 1) &amp;&amp;</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">                this.board.getCell(1, 1) == this.board.getCell(0, 2))</span>
+                {
+<span class="fc" id="L83">                    playerId = this.board.getCell(1, 1);</span>
+                }
+            
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            if (this.board.getCell(0, 0) == this.board.getCell(1, 1) &amp;&amp;</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">                this.board.getCell(1, 1) == this.board.getCell(2, 2))</span>
+                {
+<span class="fc" id="L89">                    playerId = this.board.getCell(1, 1);</span>
+                }
+        }
+
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (playerId == 1) {</span>
+<span class="fc" id="L94">            return GameResult.PLAYER_1;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        } else if (playerId == 2) {</span>
+<span class="fc" id="L96">            return GameResult.PLAYER_2;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        } else if (this.moves &gt; (boardSize*boardSize - 1)) {</span>
+<span class="fc" id="L98">            return GameResult.STALE_MATE;</span>
+        } else {
+<span class="fc" id="L100">            return GameResult.GAME_IN_PROGRESS;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
