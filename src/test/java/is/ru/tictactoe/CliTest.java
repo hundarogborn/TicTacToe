@@ -17,9 +17,9 @@ public class CliTest {
 		if(token == 1)
 			assertEquals('X', cell[index]);
 		else if(token == 2)
-			asserEquals('O', cell[index]);
+			assertEquals('O', cell[index]);
 		else 
-			asserEquals(' ', cell[index]);
+			assertEquals(' ', cell[index]);
 
 	}
 */
@@ -33,4 +33,19 @@ public class CliTest {
 		Player player = new Player(name);
 		assertEquals("NN", player.name);
 	}
+
+	@Test
+	public final void testYCoordinatesCalculation() {	
+		Cli c = new Cli();
+		assertEquals(1, c.setCordy(3));
+	}
+	
+
+/*
+	@Test
+	public final void testIfPlayAgainReturnsFalseIfNIsTyped() {
+		
+		assertEquals(false, Cli.playAgain.sc.next())	
+
+	}*/
 }
