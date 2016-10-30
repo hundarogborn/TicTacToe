@@ -28,12 +28,7 @@ public class WebUI {
     }
 
     private void setupRoutes() {
-
-        get("/reset", (request, response) -> {
-                request.session().removeAttribute("game");
-                response.redirect("/");
-                return null;
-            });
+        get("/reset", WebUI::resetGameHandler);
         
         // Example on session state
         get("/", (request, response) -> {
@@ -118,4 +113,12 @@ public class WebUI {
         res.redirect("https://www.google.is/#q=tic+tac+toe");
         return "";
     }
+
+    public static Object resetGameHandler(Request request, Response response) {
+        request.session().removeAttribute("game");
+        response.redirect("/");
+
+        return null;
+    }
+
 }
