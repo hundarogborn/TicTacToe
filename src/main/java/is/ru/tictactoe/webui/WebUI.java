@@ -12,11 +12,14 @@ import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.*;
 
 import is.ru.tictactoe.Game;
+import is.ru.tictactoe.Player;
 import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
 
-    private static final String USERNAME = "username";
+    private static final String GAMETYPE = "unknown";
+    private static Player player1;
+    private static Player player2;
 
     public WebUI(int port) {
         port(port);
@@ -26,6 +29,10 @@ public class WebUI {
     
         // Debug option to see routes at  /debug/routeoverview/
         RouteOverview.enableRouteOverview();
+
+        player1 = new Player("");
+        player2 = new Player("");
+
     }
 
     private void setupRoutes() {
@@ -37,9 +44,14 @@ public class WebUI {
     }
 
     public static Object entryPostHandler(Request request, Response response) {
-        String name = request.queryParams("name");
-        if (name != null) {
-            request.session().attribute(USERNAME, name);
+        String type = request.queryParams("type");
+        if (type != null) {
+            request.session().attribute(GAMETYPE, type);
+            player1 = new Player(request.queryParams("player1"));
+            player2 = new Player(request.queryParams("player2"));
+            if (type.equals("pvc")) {
+            	player2.setHuman(false);
+            }
         }
         response.redirect("/");
         return null;
@@ -47,8 +59,8 @@ public class WebUI {
 
     public static ModelAndView rootGetHandler(Request request, Response response) {
         // First; see if a user has entered his name
-        String name = request.session().attribute(USERNAME);
-        if(name == null) {
+        String type = request.session().attribute(GAMETYPE);
+        if(type == null) {
             return new ModelAndView(null, "name_form.ftl");
         }
         
@@ -76,6 +88,16 @@ public class WebUI {
         
         // Populate the board template
         templateParams.put("board", game.getBoard());
+
+        // Push player name to template
+        String playerName = "";
+        if (game.getMoves() % 2 == 0) {
+        	playerName = player1.getName();
+        } else {
+        	playerName = player2.getName();
+        }
+        templateParams.put("playerName", playerName);
+
         return new ModelAndView(templateParams, "board.ftl");
     }
 

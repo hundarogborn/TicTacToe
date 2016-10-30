@@ -8,6 +8,10 @@
   <body>
     <h1>TicTacToe</h1>
 	<p>Pick a cell</p>
+
+	<#assign playerName=playerName>
+	${playerName} - make a move!
+
     <form method="POST" action="/" />
     <table>
     <#assign size=board.boardSize()>
