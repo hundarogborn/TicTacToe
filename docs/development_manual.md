@@ -54,6 +54,13 @@ a release to Github for every tag.
 
 See .travis.yml for details.
 
+# Selenium
+
+Selenium is used for end to end testing.
+
+We use Chrome for Selenium testing so "chromedriver.exe" is needed and the path to the file needs to be added to system path.
+You can find it here: [Download chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+
 # Submitting changes
 
 We use feature branches.  You are never, ever, ever, ever(!!!!) to push directly to master.
