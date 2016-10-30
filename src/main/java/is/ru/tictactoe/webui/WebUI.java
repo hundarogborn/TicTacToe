@@ -123,7 +123,11 @@ public class WebUI {
         
         // Make the move
         try {
-            game.makeMove(x, y, 1);
+            if (game.getMoves() % 2 == 0) {
+            	game.makeMove(x, y, 1);
+            } else {
+            	game.makeMove(x, y, 2);
+            }
         } catch(IllegalMoveException e) {
             halt(400, "Out of bounds move");
         }
