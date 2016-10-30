@@ -9,6 +9,7 @@ set -e
 # We'll always build the documentation however
 
 bin/build_doc
+REPO_ROOT=$(pwd)
 
 #if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
 if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" == "true" ] || [ "$TRAVIS_BRANCH" != "feat/doc-to-github" ]; then
@@ -28,8 +29,7 @@ cd gh-pages
 if [ -e ./javadoc ]; then
     git rm -rf ./javadoc
 fi
-ls $HOME/*
-cp -Rf $HOME/build/docs/javadoc ./javadoc
+cp -Rf "$REPO_ROOT/build/docs/javadoc" ./javadoc
 git add -f .
 git commit -m "Lastest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
 git push -fq origin gh-pages > /dev/null
