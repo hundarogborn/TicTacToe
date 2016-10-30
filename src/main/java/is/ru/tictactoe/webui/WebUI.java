@@ -11,7 +11,7 @@ import spark.route.RouteOverview;
 import spark.template.freemarker.FreeMarkerEngine;
 import static spark.Spark.*;
 
-import is.ru.tictactoe.Engine;
+import is.ru.tictactoe.Game;
 import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
@@ -52,9 +52,9 @@ public class WebUI {
             return new ModelAndView(null, "name_form.ftl");
         }
         
-        Engine game = request.session().attribute("game");
+        Game game = request.session().attribute("game");
         if(game == null) {
-            game = new Engine();
+            game = new Game();
             request.session().attribute("game", game);
         }
         
@@ -81,7 +81,7 @@ public class WebUI {
 
     public static Object moveSubmissionHandler(Request request, Response response) {
         // Handle post; a player played a cell
-        Engine game = request.session().attribute("game");
+        Game game = request.session().attribute("game");
         if(game == null) {
             // Player is posting without a game session.
             // Have him sign up.

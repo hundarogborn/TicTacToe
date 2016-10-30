@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class EngineTest {
+public class GameTest {
 
-    private Engine engine = new Engine();
+    private Game engine = new Game();
 
     @Test
     public final void testMakeMove() throws IllegalMoveException {
@@ -75,59 +75,59 @@ public class EngineTest {
 
     @Test
     public final void testWinner() throws IllegalMoveException {
-        Engine e = new Engine();
+        Game e = new Game();
         System.out.println("Inside Winner()");
-        assertEquals(Engine.GameResult.GAME_IN_PROGRESS, e.winner());
+        assertEquals(Game.GameResult.GAME_IN_PROGRESS, e.winner());
         
-        e = new Engine();
+        e = new Game();
         e.makeMove(0, 0, 1);
         e.makeMove(0, 1, 1);
         e.makeMove(0, 2, 1);
-        assertEquals(Engine.GameResult.PLAYER_1, e.winner());
+        assertEquals(Game.GameResult.PLAYER_1, e.winner());
         
-        e = new Engine();
+        e = new Game();
         e.makeMove(1, 0, 2);
         e.makeMove(1, 1, 2);
         e.makeMove(1, 2, 2);
-        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+        assertEquals(Game.GameResult.PLAYER_2, e.winner());
 
-        e = new Engine();
+        e = new Game();
         e.makeMove(2, 0, 2);
         e.makeMove(2, 1, 2);
         e.makeMove(2, 2, 2);
-        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+        assertEquals(Game.GameResult.PLAYER_2, e.winner());
 		
-		e = new Engine();
+		e = new Game();
         e.makeMove(0, 0, 2);
         e.makeMove(1, 0, 2);
         e.makeMove(2, 0, 2);
-        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+        assertEquals(Game.GameResult.PLAYER_2, e.winner());
 		
-		e = new Engine();
+		e = new Game();
         e.makeMove(0, 1, 2);
         e.makeMove(1, 1, 2);
         e.makeMove(2, 1, 2);
-        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+        assertEquals(Game.GameResult.PLAYER_2, e.winner());
 		
-		e = new Engine();
+		e = new Game();
         e.makeMove(0, 2, 2);
         e.makeMove(1, 2, 2);
         e.makeMove(2, 2, 2);
-        assertEquals(Engine.GameResult.PLAYER_2, e.winner());
+        assertEquals(Game.GameResult.PLAYER_2, e.winner());
         
-        e = new Engine();
+        e = new Game();
         e.makeMove(2, 0, 1);
         e.makeMove(1, 1, 1);
         e.makeMove(0, 2, 1);
-        assertEquals(Engine.GameResult.PLAYER_1, e.winner());
+        assertEquals(Game.GameResult.PLAYER_1, e.winner());
 		
-		e = new Engine();
+		e = new Game();
         e.makeMove(0, 0, 1);
         e.makeMove(1, 1, 1);
         e.makeMove(2, 2, 1);
-        assertEquals(Engine.GameResult.PLAYER_1, e.winner());
+        assertEquals(Game.GameResult.PLAYER_1, e.winner());
 
-        e = new Engine();
+        e = new Game();
         e.makeMove(0, 0, 1);
         e.makeMove(0, 1, 1);
         e.makeMove(0, 2, 2);
@@ -140,7 +140,7 @@ public class EngineTest {
         e.makeMove(2, 1, 2);
         e.makeMove(2, 2, 1);
 
-        assertEquals(Engine.GameResult.STALE_MATE, e.winner());
+        assertEquals(Game.GameResult.STALE_MATE, e.winner());
     }
 
 }

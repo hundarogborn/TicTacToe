@@ -1,19 +1,19 @@
 package is.ru.tictactoe;
 
 import java.util.Scanner;
-import is.ru.tictactoe.Engine.GameResult;
+import is.ru.tictactoe.Game.GameResult;
 
 public class Cli {
 
 	private static Scanner sc = new Scanner(System.in);
-	private Engine game;
+	private Game game;
 	private Player p1;
 	private Player p2;
 	private boolean hooked = true;
 
 
 	public Cli() {
-		this.game = new Engine();
+		this.game = new Game();
 		this.p1 = new Player("");
 		this.p2 = new Player("");
 	}
@@ -145,7 +145,7 @@ public class Cli {
 			}
 			
 			// Reset game state
-			game = new Engine();
+			game = new Game();
 			moves = 0;
 			
 			println("");

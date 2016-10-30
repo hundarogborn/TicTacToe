@@ -1,6 +1,6 @@
 package is.ru.tictactoe;
 
-public class Engine implements java.io.Serializable {
+public class Game {
 
     private final static int MAX_PLAYERS = 2;
     private Board board;
@@ -13,11 +13,11 @@ public class Engine implements java.io.Serializable {
         GAME_IN_PROGRESS,
     }
     
-    public Engine() {
+    public Game() {
         this(new Board());
     }
 
-    public Engine(Board b) {
+    public Game(Board b) {
         this.board = b;
     }
 
