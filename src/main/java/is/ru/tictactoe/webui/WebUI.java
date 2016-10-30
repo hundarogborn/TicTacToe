@@ -109,11 +109,6 @@ public class WebUI {
             });
     }
 
-    public static String redirectToGoogle(Request req, Response res) {
-        res.redirect("https://www.google.is/#q=tic+tac+toe");
-        return "";
-    }
-
     public static Object resetGameHandler(Request request, Response response) {
         request.session().removeAttribute("game");
         response.redirect("/");

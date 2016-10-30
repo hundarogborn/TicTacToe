@@ -24,8 +24,4 @@ public class WebUITest {
         verify(mockedRequest.session()).removeAttribute("game");
         verify(mockedResponse).redirect("/");
     }
-    
-    @Test public void testRedirectToGoogle() {
-        // How the fuck do we test handlers?
-    }
 }
