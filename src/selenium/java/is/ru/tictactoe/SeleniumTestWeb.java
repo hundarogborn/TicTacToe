@@ -14,7 +14,7 @@ import is.ru.tictactoe.SeleniumTestWrapper;
   
       @Test
       public void assertFirstTest() {
-          driver.get(baseUrl   "/config.html");
+          driver.get(baseUrl);//"/config.html");
           /*
           1. Fill in some name (first name, last name)
           2. Submit form.
@@ -24,4 +24,5 @@ import is.ru.tictactoe.SeleniumTestWrapper;
           6. Assert the name is used in the joke.
           */
       }
+	  
   }

@@ -21,7 +21,7 @@ public abstract class SeleniumTestWrapper {
         if (port == null) {
             port = "80";
         }
-        baseUrl = "http://salty-woodland-44662.herokuapp.com/" + port;
+        baseUrl = "http://salty-woodland-44662.herokuapp.com/";
     }
 
     @AfterClass
