@@ -10,18 +10,18 @@ public class CliTest {
 	public final void testPlayerGetsNewName() {
 		String name = "NN";
 		Player player = new Player(name);
-		assertEquals("NN", player.name);
+		assertEquals(name, player.name);
 	}
 
 	@Test
 	public final void testYCoordinatesCalculation() {	
 		Cli c = new Cli();
-		assertEquals(1, c.setCordy(3));
+		assertEquals(1, c.cordY(3));
 	}
 	
 	@Test
 	public final void testXCoordinatesCalculation() {
 		Cli c = new Cli();
-		assertEquals(0, c.setCordx(3));
+		assertEquals(0, c.cordX(3));
 	}
 }
