@@ -9,8 +9,7 @@ REPO_ROOT=$(pwd)
 # - We're building master.
 # - We're on our own repo; not a fork.
 
-#if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
-if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" == "true" ] || [ "$TRAVIS_BRANCH" != "feat/doc-to-github" ]; then
+if [ "$TRAVIS_REPO_SLUG" != "hundarogborn/TicTacToe" ] || [ "$TRAVIS_PULL_REQUEST" != "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
    echo "Not pushing documentation; we're not on master"
    exit 0; # 0, because we don't want to fail the build
 fi
