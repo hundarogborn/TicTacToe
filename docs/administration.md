@@ -24,17 +24,15 @@ TicTacToe can be run in two ways:
 
 - As a web application
 
-## Running the CLI app
+Download an uberjar from [our GitHub releases page](https://github.com/hundarogborn/TicTacToe/releases) and:
 
-Download an uberjar from our release page and:
+## Running the CLI app
 
 ```
 $ java -jar path/to/tictactoe.jar cli
 ```
 
 ## Running the Web app
-
-Download an uberjar from oru release page and:
 
 ```
 $ java -jar path/to/tictactoe.jar web
