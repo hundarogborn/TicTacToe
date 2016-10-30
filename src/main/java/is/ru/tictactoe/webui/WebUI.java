@@ -21,6 +21,7 @@ public class WebUI {
     private static final String GAMETYPE = "unknown";
     private static Player player1;
     private static Player player2;
+    private static int numberOfGames = 0;
 
     public WebUI(int port) {
         port(port);
@@ -39,6 +40,7 @@ public class WebUI {
     private void setupRoutes() {
         get("/", WebUI::rootGetHandler, new FreeMarkerEngine());
         get("/reset", WebUI::resetGameHandler);
+        get("/new", WebUI::newGameHandler);
         post("/entry", WebUI::entryPostHandler);
         post("/", WebUI::moveSubmissionHandler);
         exception(Exception.class, WebUI::exceptionHandler);
@@ -71,13 +73,22 @@ public class WebUI {
             request.session().attribute("game", game);
         }
 
+        String score = "";
         Map<String, Object> templateParams = new HashMap<>();
         switch (game.winner()) {
         case PLAYER_1:
             // Assume that player 1 is human
+            numberOfGames++;
+            player1.addWin();
+            score = getScore(game);
+            templateParams.put("score", score);
             templateParams.put("message", "CONGRATULATIONS! " + player1.getName() + " YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case PLAYER_2:
+            numberOfGames++;
+            player2.addWin();
+            score = getScore(game);
+            templateParams.put("score", score);
             if (player2.isHuman()) {
                 templateParams.put("message", "CONGRATULATIONS! " + player2.getName() + " YOU WON!");
                 return new ModelAndView(templateParams, "game_results.ftl");
@@ -86,6 +97,9 @@ public class WebUI {
                 return new ModelAndView(templateParams, "game_results.ftl");
             }
         case STALE_MATE:
+            numberOfGames++;
+            score = getScore(game);
+            templateParams.put("score", score);
             templateParams.put("message", "Close - but no cigar; this was a tie");
             return new ModelAndView(templateParams, "game_results.ftl");
         case GAME_IN_PROGRESS:
@@ -166,8 +180,26 @@ public class WebUI {
 
         return null;
     }
+    
+    
+    public static Object newGameHandler(Request request, Response response) {
+        request.session().removeAttribute("game");
+        request.session().removeAttribute(GAMETYPE);
+        numberOfGames = 0;
+        response.redirect("/");
+     
+        return null;
+    }
 
     public static void exceptionHandler(Exception e, Request request, Response response) {
         response.body(e.getMessage());
+    }
+    
+    public static String getScore(Game game) {
+        String score = "Game score:<br>";
+        score += "Total games played: " + numberOfGames + "<br>";
+        score += player1.getName() + " has won " + player1.getWins() + " times!<br>";
+        score += player2.getName() + " has won " + player2.getWins() + " times!<br>";
+        return score;
     }
 }
