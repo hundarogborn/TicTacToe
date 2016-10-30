@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>TicTacToe</title>
+  <title>Administration</title>
   <meta name="description" content="TicTacToes developer central">
 
   <link rel="stylesheet" href="/TicTacToe/assets/main.css">
-  <link rel="canonical" href="https://hundarogborn.github.io/TicTacToe/">
+  <link rel="canonical" href="https://hundarogborn.github.io/TicTacToe/admin/">
   <link rel="alternate" type="application/rss+xml" title="TicTacToe" href="/TicTacToe/feed.xml">
   
   
@@ -71,23 +71,82 @@
         <article class="post">
 
   <header class="post-header">
-    <h1 class="post-title">TicTacToe</h1>
+    <h1 class="post-title">Administration</h1>
   </header>
 
   <div class="post-content">
-    <h1 id="javadocjavadoc"><a href="javadoc">Javadoc</a></h1>
+    <h1 id="administering-tictactoe">Administering TicTacToe</h1>
 
-<p>It’s generated automatically on merge to master, so it should be up to date</p>
+<p>Some of the details here overlap with the develop documentation, so you might want to take
+a look at that as well.</p>
 
-<h1 id="code-coverage-reportscoverage"><a href="coverage">Code coverage reports</a></h1>
+<h1 id="prerequisites">Prerequisites</h1>
 
-<p>The coverage reports are generated automatically on merge to master.  You’ll probably want
-to see our <a href="https://codecov.io/gh/hundarogborn/TicTacToe">codecov-io</a> site, however.</p>
+<p>We use Java 8 features, so ensure that you have Java 8 runtime installed.
+You can find it here: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html</p>
 
-<h1 id="test-reportstest"><a href="test">Test reports</a></h1>
+<h1 id="releases">Releases</h1>
 
-<p>The test reports are generated automatically on merge to master.  For your feature branches,
-you’ll probably want to use travis-ci directly.</p>
+<p>Our releases can be found on <a href="https://github.com/hundarogborn/TicTacToe/releases">our GitHub releases page</a>.</p>
+
+<p>Each release is simply an “uberjar”, a self-contained JAR for minimal overhead, so you do not need to install
+any dependencies.</p>
+
+<h1 id="running">Running</h1>
+
+<p>TicTacToe can be run in two ways:</p>
+
+<ul>
+  <li>
+    <p>As a command line application where you interactively play</p>
+  </li>
+  <li>
+    <p>As a web application</p>
+  </li>
+</ul>
+
+<p>Download an uberjar from <a href="https://github.com/hundarogborn/TicTacToe/releases">our GitHub releases page</a> and:</p>
+
+<h2 id="running-the-cli-app">Running the CLI app</h2>
+
+<p><code>
+$ java -jar path/to/tictactoe.jar cli
+</code></p>
+
+<h2 id="running-the-web-app">Running the Web app</h2>
+
+<p><code>
+$ java -jar path/to/tictactoe.jar web
+</code></p>
+
+<p>By default, the application listens on tcp/4567.</p>
+
+<p>To have it listen on something else, export the PORT environment variable:
+<code>
+$ export PORT=1234 
+$ java -jar path/to/tictactoe.jar web
+</code></p>
+
+<h1 id="development-and-staging-environments">Development and staging environments</h1>
+
+<p>We utilize a few different services for our app, each with it’s own access control etc.
+Here’s a list of people that can grant access to each.</p>
+
+<h2 id="github">GitHub</h2>
+
+<p>All members of our team are organization owners, so feel free to approach anyone.</p>
+
+<h2 id="heroku">Heroku</h2>
+
+<p>@sveinng has the credentials for Heroku</p>
+
+<h2 id="travis">Travis</h2>
+
+<p>All github org owners can access and administer our travis-ci account.</p>
+
+<h2 id="codecovio">CodeCov.io</h2>
+
+<p>@sveinng has the credentials for CodeCov.</p>
 
 
   </div>
