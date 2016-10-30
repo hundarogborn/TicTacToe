@@ -1,161 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cli.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TicTacToe</a> &gt; <a href="index.source.html" class="el_package">is.ru.tictactoe</a> &gt; <span class="el_source">Cli.java</span></div><h1>Cli.java</h1><pre class="source lang-java linenums">package is.ru.tictactoe;
 
 import java.util.Scanner;
+import java.util.Random;
 import is.ru.tictactoe.Game.GameResult;
 
 public class Cli {
 
-<span class="nc" id="L8">	private static Scanner sc = new Scanner(System.in);</span>
+<span class="nc" id="L9">	private static Scanner sc = new Scanner(System.in);</span>
 	private Game game;
 	private Player p1;
 	private Player p2;
-<span class="nc" id="L12">	private boolean hooked = true;</span>
+<span class="nc" id="L13">	private boolean hooked = true;</span>
 
 
-<span class="nc" id="L15">	public Cli() {</span>
-<span class="nc" id="L16">		this.game = new Game();</span>
-<span class="nc" id="L17">		this.p1 = new Player(&quot;&quot;);</span>
-<span class="nc" id="L18">		this.p2 = new Player(&quot;&quot;);</span>
-<span class="nc" id="L19">	}</span>
+<span class="nc" id="L16">	public Cli() {</span>
+<span class="nc" id="L17">		this.game = new Game();</span>
+<span class="nc" id="L18">		this.p1 = new Player(&quot;&quot;);</span>
+<span class="nc" id="L19">		this.p2 = new Player(&quot;&quot;);</span>
+<span class="nc" id="L20">	}</span>
 
-<span class="nc" id="L21">	private class coordinates {</span>
+<span class="nc" id="L22">	private class coordinates {</span>
 		int x;
 		int y;
 	}
 
 	private void print(String string) {
-<span class="nc" id="L27">		System.out.print(string);;</span>
-<span class="nc" id="L28">	}</span>
+<span class="nc" id="L28">		System.out.print(string);;</span>
+<span class="nc" id="L29">	}</span>
 	
 	private void println(String string) {
-<span class="nc" id="L31">		System.out.println(string);;</span>
-<span class="nc" id="L32">	}</span>
+<span class="nc" id="L32">		System.out.println(string);;</span>
+<span class="nc" id="L33">	}</span>
 
 	private void printBoard() {
-<span class="nc" id="L35">		char[] cell = new char[9];</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">		for (int index = 0; index &lt; 9; index++) {</span>
-<span class="nc" id="L37">			coordinates cord = getCellCords(index);</span>
-<span class="nc" id="L38">			int token = game.getCell(cord.x, cord.y);</span>
-<span class="nc bnc" id="L39" title="All 2 branches missed.">			if (token == 1)</span>
-<span class="nc" id="L40">				cell[index] = 'X';</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">			else if (token == 2)</span>
-<span class="nc" id="L42">				cell[index] = 'O';</span>
-<span class="nc" id="L43">			else cell[index] = ' ';</span>
+<span class="nc" id="L36">		char[] cell = new char[9];</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">		for (int index = 0; index &lt; 9; index++) {</span>
+<span class="nc" id="L38">			coordinates cord = getCellCords(index);</span>
+<span class="nc" id="L39">			int token = game.getCell(cord.x, cord.y);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">			if (token == 1)</span>
+<span class="nc" id="L41">				cell[index] = 'X';</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">			else if (token == 2)</span>
+<span class="nc" id="L43">				cell[index] = 'O';</span>
+<span class="nc" id="L44">			else cell[index] = ' ';</span>
 		}
 		
-<span class="nc" id="L46">		println(&quot;&quot;);</span>
-<span class="nc" id="L47">		String line = String.format(&quot; %s | %s | %s    1 2 3\n&quot;, cell[0], cell[1], cell[2]);</span>
-<span class="nc" id="L48">		line += &quot;-----------\n&quot;; </span>
-<span class="nc" id="L49">		line += String.format(&quot; %s | %s | %s    4 5 6\n&quot;, cell[3], cell[4], cell[5]);</span>
-<span class="nc" id="L50">		line += &quot;-----------\n&quot;; </span>
-<span class="nc" id="L51">		line += String.format(&quot; %s | %s | %s    7 8 9\n&quot;, cell[6], cell[7], cell[8]);</span>
-<span class="nc" id="L52">		println(line);</span>
-<span class="nc" id="L53">	}</span>
+<span class="nc" id="L47">		println(&quot;&quot;);</span>
+<span class="nc" id="L48">		String line = String.format(&quot; %s | %s | %s    1 2 3\n&quot;, cell[0], cell[1], cell[2]);</span>
+<span class="nc" id="L49">		line += &quot;-----------\n&quot;; </span>
+<span class="nc" id="L50">		line += String.format(&quot; %s | %s | %s    4 5 6\n&quot;, cell[3], cell[4], cell[5]);</span>
+<span class="nc" id="L51">		line += &quot;-----------\n&quot;; </span>
+<span class="nc" id="L52">		line += String.format(&quot; %s | %s | %s    7 8 9\n&quot;, cell[6], cell[7], cell[8]);</span>
+<span class="nc" id="L53">		println(line);</span>
+<span class="nc" id="L54">	}</span>
 
 	private void greeting() {
-<span class="nc" id="L56">		println(&quot;&quot;);</span>
-<span class="nc" id="L57">		String line = &quot;\n&quot;;</span>
-<span class="nc" id="L58">		line += &quot;.::: .::::::          .::: .::::::                 .::: .::::::                    \n&quot;;</span>
-<span class="nc" id="L59">		line += &quot;     .::     .:            .::                          .::                        \n&quot;;</span>
-<span class="nc" id="L60">		line += &quot;     .::          .:::     .::       .::       .:::     .::       .::       .::    \n&quot;;</span>
-<span class="nc" id="L61">		line += &quot;     .::    .:: .::        .::     .::  .::  .::        .::     .::  .::  .:   .:: \n&quot;;</span>
-<span class="nc" id="L62">		line += &quot;     .::    .::.::         .::    .::   .:: .::         .::    .::    .::.::::: .::\n&quot;;</span>
-<span class="nc" id="L63">		line += &quot;     .::    .:: .::        .::    .::   .::  .::        .::     .::  .:: .:        \n&quot;;</span>
-<span class="nc" id="L64">		line += &quot;     .::    .::   .:::     .::      .:: .:::   .:::     .::       .::      .::::   \n&quot;;</span>
-<span class="nc" id="L65">		line += &quot;\n&quot;;</span>
-<span class="nc" id="L66">		println(line);</span>
-<span class="nc" id="L67">	}</span>
+<span class="nc" id="L57">		println(&quot;&quot;);</span>
+<span class="nc" id="L58">		String line = &quot;\n&quot;;</span>
+<span class="nc" id="L59">		line += &quot;.::: .::::::          .::: .::::::                 .::: .::::::                    \n&quot;;</span>
+<span class="nc" id="L60">		line += &quot;     .::     .:            .::                          .::                        \n&quot;;</span>
+<span class="nc" id="L61">		line += &quot;     .::          .:::     .::       .::       .:::     .::       .::       .::    \n&quot;;</span>
+<span class="nc" id="L62">		line += &quot;     .::    .:: .::        .::     .::  .::  .::        .::     .::  .::  .:   .:: \n&quot;;</span>
+<span class="nc" id="L63">		line += &quot;     .::    .::.::         .::    .::   .:: .::         .::    .::    .::.::::: .::\n&quot;;</span>
+<span class="nc" id="L64">		line += &quot;     .::    .:: .::        .::    .::   .::  .::        .::     .::  .:: .:        \n&quot;;</span>
+<span class="nc" id="L65">		line += &quot;     .::    .::   .:::     .::      .:: .:::   .:::     .::       .::      .::::   \n&quot;;</span>
+<span class="nc" id="L66">		line += &quot;\n&quot;;</span>
+<span class="nc" id="L67">		println(line);</span>
+<span class="nc" id="L68">	}</span>
+
+	private int getGameType() {
+<span class="nc" id="L71">		println(&quot;&quot;);</span>
+<span class="nc" id="L72">		println(&quot;What kind of game would you like?&quot;);</span>
+<span class="nc" id="L73">		println(&quot;1. Player vs Player&quot;);</span>
+<span class="nc" id="L74">		println(&quot;2. Player vs Computer&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">		while (!sc.hasNext(&quot;[12]&quot;)) {</span>
+<span class="nc" id="L76">		    println(&quot;Please enter 1 or 2!&quot;);</span>
+<span class="nc" id="L77">		    sc.next();</span>
+		}
+<span class="nc" id="L79">		return Integer.parseInt(sc.next());</span>
+	}
 
 	// Translate index to x,y coordinates
 	private coordinates getCellCords(int index) {
-<span class="nc" id="L71">		coordinates cord = new coordinates();</span>
-<span class="nc" id="L72">		cord.x = (index % 3);</span>
-<span class="nc" id="L73">		cord.y = (index / 3);</span>
-<span class="nc" id="L74">		return cord;</span>
+<span class="nc" id="L84">		coordinates cord = new coordinates();</span>
+<span class="nc" id="L85">		cord.x = (index % 3);</span>
+<span class="nc" id="L86">		cord.y = (index / 3);</span>
+<span class="nc" id="L87">		return cord;</span>
 	}
 
 	private Player setPlayer(int num) {
 		Player player;
-<span class="nc" id="L79">		System.out.print(&quot;Player &quot; + num + &quot; name: &quot;);</span>
-<span class="nc" id="L80">		String name = sc.next();</span>
-<span class="nc" id="L81">		player = new Player(name);</span>
-<span class="nc" id="L82">		return player;</span>
+<span class="nc" id="L92">		System.out.print(&quot;Player &quot; + num + &quot; name: &quot;);</span>
+<span class="nc" id="L93">		String name = sc.next();</span>
+<span class="nc" id="L94">		player = new Player(name);</span>
+<span class="nc" id="L95">		return player;</span>
 	}
 
 	private void makeMove(int moves) {
-<span class="nc" id="L86">		boolean valid = false;</span>
+<span class="nc" id="L99">		boolean valid = false;</span>
+<span class="nc" id="L100">		boolean human = false;</span>
 
-<span class="nc bnc" id="L88" title="All 2 branches missed.">		while(!valid) { </span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">		while(!valid) { </span>
 			// Check if player 1
-<span class="nc bnc" id="L90" title="All 2 branches missed.">			if (moves % 2 == 1) {</span>
-<span class="nc" id="L91">				print(&quot;Player &quot; + p1.getName() + &quot; move: &quot;);</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">			if (moves % 2 == 1) {</span>
+<span class="nc" id="L105">				print(&quot;Player &quot; + p1.getName() + &quot; move: &quot;);</span>
+<span class="nc" id="L106">				human = p1.isHuman();</span>
 			} else {
-<span class="nc" id="L93">				print(&quot;Player &quot; + p2.getName() + &quot; move: &quot;);</span>
+<span class="nc" id="L108">				print(&quot;Player &quot; + p2.getName() + &quot; move: &quot;);</span>
+<span class="nc" id="L109">				human = p2.isHuman();</span>
 			}
 		
-<span class="nc" id="L96">			int index = sc.nextInt();</span>
-<span class="nc" id="L97">			coordinates cord = getCellCords(index - 1);</span>
-			try {
-				// Need to match moves to player 1 and 2
-<span class="nc" id="L100">				game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));</span>
-<span class="nc" id="L101">				valid = true;</span>
-<span class="nc" id="L102">			} catch (IllegalMoveException e) {</span>
-<span class="nc" id="L103">				print(&quot;Try again!&quot;);</span>
-<span class="nc" id="L104">			} 		</span>
-<span class="nc" id="L105">		}</span>
-<span class="nc" id="L106">	}</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">			if(human) {</span>
+<span class="nc" id="L113">				int index = sc.nextInt();</span>
+<span class="nc" id="L114">				coordinates cord = getCellCords(index - 1);</span>
+				try {
+					// Need to match moves to player 1 and 2
+<span class="nc" id="L117">					game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));</span>
+<span class="nc" id="L118">					valid = true;</span>
+<span class="nc" id="L119">				} catch (IllegalMoveException e) {</span>
+<span class="nc" id="L120">					print(&quot;Try again!&quot;);</span>
+<span class="nc" id="L121">				}</span>
+<span class="nc" id="L122">			} else {</span>
+<span class="nc" id="L123">				Random ran = new Random();</span>
+				do {
+<span class="nc" id="L125">					print(&quot;..thinking.. &quot;);</span>
+<span class="nc" id="L126">					think();</span>
+<span class="nc" id="L127">					int index = ran.nextInt(10);</span>
+<span class="nc" id="L128">					coordinates cord = getCellCords(index - 1);</span>
+					try {
+<span class="nc" id="L130">						game.makeMove(cord.x, cord.y, (((moves +1) % 2) + 1));</span>
+<span class="nc" id="L131">						println(&quot;&quot; + index);</span>
+<span class="nc" id="L132">						valid = true;</span>
+<span class="nc" id="L133">					} catch (IllegalMoveException e) {</span>
+						// do nothin - just try again
+<span class="nc" id="L135">					}</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">				} while (!valid);</span>
+<span class="nc" id="L137">			} 		</span>
+		}
+<span class="nc" id="L139">	}</span>
+
+	private void think() {
+		// Fake think time
+<span class="nc" id="L143">		Random ran = new Random();</span>
+<span class="nc" id="L144">		int sleep = ran.nextInt(1000);</span>
+		try {
+<span class="nc" id="L146">		    Thread.sleep(sleep);</span>
+<span class="nc" id="L147">		} catch(InterruptedException ex) {</span>
+<span class="nc" id="L148">		    Thread.currentThread().interrupt();</span>
+<span class="nc" id="L149">		}</span>
+<span class="nc" id="L150">	}</span>
 
 	private boolean playAgain() {
-<span class="nc" id="L109">		println(&quot;Play again? (y/n): &quot;);</span>
-<span class="nc bnc" id="L110" title="All 2 branches missed.">		while (!sc.hasNext(&quot;[yn]&quot;)) {</span>
-<span class="nc" id="L111">		    println(&quot;Please enter y or n!&quot;);</span>
-<span class="nc" id="L112">		    sc.next();</span>
+<span class="nc" id="L153">		println(&quot;Play again? (y/n): &quot;);</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">		while (!sc.hasNext(&quot;[yn]&quot;)) {</span>
+<span class="nc" id="L155">		    println(&quot;Please enter y or n!&quot;);</span>
+<span class="nc" id="L156">		    sc.next();</span>
 		}
-<span class="nc" id="L114">		return (sc.next().equals(&quot;y&quot;));</span>
+<span class="nc" id="L158">		return (sc.next().equals(&quot;y&quot;));</span>
 	}
 
 	public void startGame() {
 
-<span class="nc" id="L119">		greeting();</span>
-<span class="nc" id="L120">		p1 = setPlayer(1);</span>
-<span class="nc" id="L121">		p2 = setPlayer(2);</span>
-<span class="nc" id="L122">		int moves = 0;</span>
+<span class="nc" id="L163">		greeting();</span>
+<span class="nc" id="L164">		int gameType = getGameType();</span>
+<span class="nc" id="L165">		p1 = setPlayer(1);</span>
+<span class="nc" id="L166">		p2 = setPlayer(2);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">		if (gameType == 2) p2.setHuman(false);</span>
+<span class="nc" id="L168">		int moves = 0;</span>
 		
-<span class="nc bnc" id="L124" title="All 2 branches missed.">		while (hooked == true) {</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">		while (hooked == true) {</span>
 			do {
-<span class="nc" id="L126">				printBoard();</span>
-<span class="nc" id="L127">				makeMove(++moves);</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">			} while (game.winner() == GameResult.GAME_IN_PROGRESS);</span>
+<span class="nc" id="L172">				printBoard();</span>
+<span class="nc" id="L173">				makeMove(++moves);</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">			} while (game.winner() == GameResult.GAME_IN_PROGRESS);</span>
 			
-<span class="nc" id="L130">			printBoard();</span>
-<span class="nc" id="L131">			println(&quot;&quot;);</span>
-<span class="nc" id="L132">			println(&quot;&quot;);</span>
+<span class="nc" id="L176">			printBoard();</span>
+<span class="nc" id="L177">			println(&quot;&quot;);</span>
+<span class="nc" id="L178">			println(&quot;&quot;);</span>
 			
-<span class="nc" id="L134">			p1.addGamesPlayed();</span>
-<span class="nc" id="L135">			p2.addGamesPlayed();</span>
+<span class="nc" id="L180">			p1.addGamesPlayed();</span>
+<span class="nc" id="L181">			p2.addGamesPlayed();</span>
 			
-<span class="nc bnc" id="L137" title="All 2 branches missed.">			if (game.winner() == GameResult.PLAYER_1) {</span>
-<span class="nc" id="L138">				p1.addWin();</span>
-<span class="nc" id="L139">				println(&quot;Congratulations &quot; + p1.name + &quot; - You have won &quot; + p1.getWins() + &quot; out of &quot; + p1.getGamesPlayed() + &quot; games!&quot;);</span>
-<span class="nc bnc" id="L140" title="All 2 branches missed.">			} else if (game.winner() == GameResult.PLAYER_2) {</span>
-<span class="nc" id="L141">				p2.addWin();</span>
-<span class="nc" id="L142">				println(&quot;Congratulations &quot; + p2.name + &quot; - You have won &quot; + p2.getWins() + &quot; out of &quot; + p2.getGamesPlayed() + &quot; games!&quot;);</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">			if (game.winner() == GameResult.PLAYER_1) {</span>
+<span class="nc" id="L184">				p1.addWin();</span>
+<span class="nc" id="L185">				println(&quot;Congratulations &quot; + p1.name + &quot; - You have won &quot; + p1.getWins() + &quot; out of &quot; + p1.getGamesPlayed() + &quot; games!&quot;);</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">			} else if (game.winner() == GameResult.PLAYER_2) {</span>
+<span class="nc" id="L187">				p2.addWin();</span>
+<span class="nc" id="L188">				println(&quot;Congratulations &quot; + p2.name + &quot; - You have won &quot; + p2.getWins() + &quot; out of &quot; + p2.getGamesPlayed() + &quot; games!&quot;);</span>
 			} else {
-<span class="nc" id="L144">				println(&quot;To bad - this is a stale mate!&quot;);</span>
+<span class="nc" id="L190">				println(&quot;To bad - this is a stale mate!&quot;);</span>
 			}
 			
 			// Reset game state
-<span class="nc" id="L148">			game = new Game();</span>
-<span class="nc" id="L149">			moves = 0;</span>
+<span class="nc" id="L194">			game = new Game();</span>
+<span class="nc" id="L195">			moves = 0;</span>
 			
-<span class="nc" id="L151">			println(&quot;&quot;);</span>
-<span class="nc" id="L152">			hooked = playAgain();</span>
+<span class="nc" id="L197">			println(&quot;&quot;);</span>
+<span class="nc" id="L198">			hooked = playAgain();</span>
 		}
 
-<span class="nc" id="L155">		println(&quot;&quot;);</span>
-<span class="nc" id="L156">		println(&quot;Thanks for playing!&quot;);</span>
+<span class="nc" id="L201">		println(&quot;&quot;);</span>
+<span class="nc" id="L202">		println(&quot;Thanks for playing!&quot;);</span>
 		// Close our open IO handles
-<span class="nc" id="L158">		sc.close();</span>
-<span class="nc" id="L159">	}</span>
+<span class="nc" id="L204">		sc.close();</span>
+<span class="nc" id="L205">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

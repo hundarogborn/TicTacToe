@@ -18,183 +18,157 @@ import is.ru.tictactoe.IllegalMoveException;
 
 public class WebUI {
 
-<span class="nc" id="L21">    public WebUI(int port) {</span>
-<span class="nc" id="L22">        port(port);</span>
+    private static final String GAMETYPE = &quot;unknown&quot;;
+    private static Player player1;
+    private static Player player2;
+
+<span class="nc" id="L25">    public WebUI(int port) {</span>
+<span class="nc" id="L26">        port(port);</span>
         // Serve static files from web directory
-<span class="nc" id="L24">        staticFileLocation(&quot;/static&quot;);</span>
-<span class="nc" id="L25">        setupRoutes();</span>
+<span class="nc" id="L28">        staticFileLocation(&quot;/static&quot;);</span>
+<span class="nc" id="L29">        setupRoutes();</span>
 
         // Debug option to see routes at /debug/routeoverview/
-<span class="nc" id="L28">        RouteOverview.enableRouteOverview();</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc" id="L32">        RouteOverview.enableRouteOverview();</span>
+
+<span class="nc" id="L34">        player1 = new Player(&quot;&quot;);</span>
+<span class="nc" id="L35">        player2 = new Player(&quot;&quot;);</span>
+
+<span class="nc" id="L37">    }</span>
 
     private void setupRoutes() {
-<span class="nc" id="L32">        get(&quot;/&quot;, WebUI::rootGetHandler, new FreeMarkerEngine());</span>
-<span class="nc" id="L33">        post(&quot;/&quot;, WebUI::moveSubmissionHandler);</span>
-<span class="nc" id="L34">        get(&quot;/new&quot;, WebUI::newGameHandler);</span>
-<span class="nc" id="L35">        get(&quot;/reset&quot;, WebUI::resetGameHandler);</span>
-<span class="nc" id="L36">        post(&quot;/entry&quot;, WebUI::entryPostHandler);</span>
-<span class="nc" id="L37">        exception(Exception.class, WebUI::exceptionHandler);</span>
-<span class="nc" id="L38">    }</span>
+<span class="nc" id="L40">        get(&quot;/&quot;, WebUI::rootGetHandler, new FreeMarkerEngine());</span>
+<span class="nc" id="L41">        get(&quot;/reset&quot;, WebUI::resetGameHandler);</span>
+<span class="nc" id="L42">        post(&quot;/entry&quot;, WebUI::entryPostHandler);</span>
+<span class="nc" id="L43">        post(&quot;/&quot;, WebUI::moveSubmissionHandler);</span>
+<span class="nc" id="L44">        exception(Exception.class, WebUI::exceptionHandler);</span>
+<span class="nc" id="L45">    }</span>
 
     public static Object entryPostHandler(Request request, Response response) {
-<span class="nc" id="L41">        String type = request.queryParams(&quot;type&quot;);</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (type != null) {</span>
-<span class="nc" id="L43">            request.session().attribute(&quot;type&quot;, type);</span>
-<span class="nc" id="L44">            Player player1 = new Player(request.queryParams(&quot;player1&quot;));</span>
-<span class="nc" id="L45">            Player player2 = new Player(request.queryParams(&quot;player2&quot;));</span>
-<span class="nc bnc" id="L46" title="All 2 branches missed.">            if (type.equals(&quot;pvc&quot;)) {</span>
-<span class="nc" id="L47">                player2.setHuman(false);</span>
+<span class="nc" id="L48">        String type = request.queryParams(&quot;type&quot;);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (type != null) {</span>
+<span class="nc" id="L50">            request.session().attribute(GAMETYPE, type);</span>
+<span class="nc" id="L51">            player1 = new Player(request.queryParams(&quot;player1&quot;));</span>
+<span class="nc" id="L52">            player2 = new Player(request.queryParams(&quot;player2&quot;));</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">            if (type.equals(&quot;pvc&quot;)) {</span>
+<span class="nc" id="L54">                player2.setHuman(false);</span>
             }
-<span class="nc" id="L49">            request.session().attribute(&quot;player1&quot;, player1);</span>
-<span class="nc" id="L50">            request.session().attribute(&quot;player2&quot;, player2);</span>
         }
-<span class="nc" id="L52">        response.redirect(&quot;/&quot;);</span>
-<span class="nc" id="L53">        return null;</span>
+<span class="nc" id="L57">        response.redirect(&quot;/&quot;);</span>
+<span class="nc" id="L58">        return null;</span>
     }
 
     public static ModelAndView rootGetHandler(Request request, Response response) {
         // First; see if a user has entered his name
-<span class="nc" id="L58">        String type = request.session().attribute(&quot;type&quot;);</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (type == null) {</span>
-<span class="nc" id="L60">            return new ModelAndView(null, &quot;name_form.ftl&quot;);</span>
+<span class="nc" id="L63">        String type = request.session().attribute(GAMETYPE);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (type == null) {</span>
+<span class="nc" id="L65">            return new ModelAndView(null, &quot;name_form.ftl&quot;);</span>
         }
 
-<span class="nc" id="L63">        Game game = request.session().attribute(&quot;game&quot;);</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (game == null) {</span>
-<span class="nc" id="L65">            game = new Game();</span>
-<span class="nc" id="L66">            request.session().attribute(&quot;game&quot;, game);</span>
+<span class="nc" id="L68">        Game game = request.session().attribute(&quot;game&quot;);</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (game == null) {</span>
+<span class="nc" id="L70">            game = new Game();</span>
+<span class="nc" id="L71">            request.session().attribute(&quot;game&quot;, game);</span>
         }
-        
-<span class="nc" id="L69">        Player player1 = request.session().attribute(&quot;player1&quot;);</span>
-<span class="nc" id="L70">        Player player2 = request.session().attribute(&quot;player2&quot;);</span>
-        
-<span class="nc" id="L72">        String score = &quot;&quot;;</span>
-<span class="nc" id="L73">        Map&lt;String, Object&gt; templateParams = new HashMap&lt;&gt;();</span>
-<span class="nc bnc" id="L74" title="All 4 branches missed.">        switch (game.winner()) {</span>
+
+<span class="nc" id="L74">        Map&lt;String, Object&gt; templateParams = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L75" title="All 4 branches missed.">        switch (game.winner()) {</span>
         case PLAYER_1:
             // Assume that player 1 is human
-<span class="nc" id="L77">            player1.addWin();</span>
-<span class="nc" id="L78">            score = getScore(game, player1, player2);</span>
-<span class="nc" id="L79">            templateParams.put(&quot;score&quot;, score);</span>
-<span class="nc" id="L80">            templateParams.put(&quot;message&quot;, &quot;CONGRATULATIONS! &quot; + player1.getName() + &quot; YOU WON!&quot;);</span>
-<span class="nc" id="L81">            return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
+<span class="nc" id="L78">            templateParams.put(&quot;message&quot;, &quot;CONGRATULATIONS! &quot; + player1.getName() + &quot; YOU WON!&quot;);</span>
+<span class="nc" id="L79">            return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
         case PLAYER_2:
-<span class="nc" id="L83">            player2.addWin();</span>
-<span class="nc" id="L84">            score = getScore(game, player1, player2);</span>
-<span class="nc" id="L85">            templateParams.put(&quot;score&quot;, score);</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (player2.isHuman()) {</span>
-<span class="nc" id="L87">                templateParams.put(&quot;message&quot;, &quot;CONGRATULATIONS! &quot; + player2.getName() + &quot; YOU WON!&quot;);</span>
-<span class="nc" id="L88">                return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (player2.isHuman()) {</span>
+<span class="nc" id="L82">                templateParams.put(&quot;message&quot;, &quot;CONGRATULATIONS! &quot; + player2.getName() + &quot; YOU WON!&quot;);</span>
+<span class="nc" id="L83">                return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
             } else {
-<span class="nc" id="L90">                templateParams.put(&quot;message&quot;, &quot;SORRY &quot; + player1.getName() + &quot; YOU LOST!&quot;);</span>
-<span class="nc" id="L91">                return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
+<span class="nc" id="L85">                templateParams.put(&quot;message&quot;, &quot;SORRY &quot; + player1.getName() + &quot; YOU LOST!&quot;);</span>
+<span class="nc" id="L86">                return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
             }
         case STALE_MATE:
-<span class="nc" id="L94">            score = getScore(game, player1, player2);</span>
-<span class="nc" id="L95">            templateParams.put(&quot;score&quot;, score);</span>
-<span class="nc" id="L96">            templateParams.put(&quot;message&quot;, &quot;Close - but no cigar; this was a tie&quot;);</span>
-<span class="nc" id="L97">            return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
+<span class="nc" id="L89">            templateParams.put(&quot;message&quot;, &quot;Close - but no cigar; this was a tie&quot;);</span>
+<span class="nc" id="L90">            return new ModelAndView(templateParams, &quot;game_results.ftl&quot;);</span>
         case GAME_IN_PROGRESS:
             break;
         }
 
         // Populate the board template
-<span class="nc" id="L103">        templateParams.put(&quot;board&quot;, game.getBoard());</span>
+<span class="nc" id="L96">        templateParams.put(&quot;board&quot;, game.getBoard());</span>
 
         // Push player name to template
         // If computer turn - make random move
-<span class="nc" id="L107">        String playerName = &quot;&quot;;</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (game.getMoves() % 2 == 0) {</span>
-<span class="nc" id="L109">            playerName = player1.getName();</span>
+<span class="nc" id="L100">        String playerName = &quot;&quot;;</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (game.getMoves() % 2 == 0) {</span>
+<span class="nc" id="L102">            playerName = player1.getName();</span>
         } else {
-<span class="nc bnc" id="L111" title="All 2 branches missed.">            if (!player2.isHuman()) {</span>
-<span class="nc" id="L112">                Random ran = new Random();</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (!player2.isHuman()) {</span>
+<span class="nc" id="L105">                Random ran = new Random();</span>
                 // Endless loop - will break out on successful move
                 do {
-<span class="nc" id="L115">                    int cellNum = ran.nextInt(10);</span>
-<span class="nc" id="L116">                    int y = cellNum / game.getBoard().boardSize();</span>
-<span class="nc" id="L117">                    int x = cellNum % game.getBoard().boardSize();</span>
+<span class="nc" id="L108">                    int cellNum = ran.nextInt(10);</span>
+<span class="nc" id="L109">                    int y = cellNum / game.getBoard().boardSize();</span>
+<span class="nc" id="L110">                    int x = cellNum % game.getBoard().boardSize();</span>
                     try {
-<span class="nc" id="L119">                        game.makeMove(x, y, 2);</span>
-<span class="nc" id="L120">                        response.redirect(&quot;/&quot;);</span>
-<span class="nc" id="L121">                        return null;</span>
-<span class="nc" id="L122">                    } catch (IllegalMoveException e) {</span>
+<span class="nc" id="L112">                        game.makeMove(x, y, 2);</span>
+<span class="nc" id="L113">                        response.redirect(&quot;/&quot;);</span>
+<span class="nc" id="L114">                        return null;</span>
+<span class="nc" id="L115">                    } catch (IllegalMoveException e) {</span>
                         // do nothing - try again
                     }
-<span class="nc" id="L125">                } while (true);</span>
+<span class="nc" id="L118">                } while (true);</span>
             } else {
-<span class="nc" id="L127">                playerName = player2.getName();</span>
+<span class="nc" id="L120">                playerName = player2.getName();</span>
             }
         }
 
-<span class="nc" id="L131">        templateParams.put(&quot;playerName&quot;, playerName);</span>
-<span class="nc" id="L132">        return new ModelAndView(templateParams, &quot;board.ftl&quot;);</span>
+<span class="nc" id="L124">        templateParams.put(&quot;playerName&quot;, playerName);</span>
+<span class="nc" id="L125">        return new ModelAndView(templateParams, &quot;board.ftl&quot;);</span>
     }
 
     public static Object moveSubmissionHandler(Request request, Response response) {
         // Handle post; a player played a cell
-<span class="nc" id="L137">        Game game = request.session().attribute(&quot;game&quot;);</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">        if (game == null) {</span>
+<span class="nc" id="L130">        Game game = request.session().attribute(&quot;game&quot;);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        if (game == null) {</span>
             // Player is posting without a game session.
             // Have him sign up.
-<span class="nc" id="L141">            response.redirect(&quot;/&quot;);</span>
-<span class="nc" id="L142">            return null;</span>
+<span class="nc" id="L134">            response.redirect(&quot;/&quot;);</span>
+<span class="nc" id="L135">            return null;</span>
         }
 
         // Find the cell played
-<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (request.queryParams().size() != 1) {</span>
-<span class="nc" id="L147">            halt(400, &quot;Illegal request&quot;);</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (request.queryParams().size() != 1) {</span>
+<span class="nc" id="L140">            halt(400, &quot;Illegal request&quot;);</span>
         }
 
         // Decode the cell number into (y, x) coordinates
-<span class="nc" id="L151">        int cellNum = Integer.parseInt(request.queryParams().iterator().next());</span>
-<span class="nc" id="L152">        int y = cellNum / game.getBoard().boardSize();</span>
-<span class="nc" id="L153">        int x = cellNum % game.getBoard().boardSize();</span>
+<span class="nc" id="L144">        int cellNum = Integer.parseInt(request.queryParams().iterator().next());</span>
+<span class="nc" id="L145">        int y = cellNum / game.getBoard().boardSize();</span>
+<span class="nc" id="L146">        int x = cellNum % game.getBoard().boardSize();</span>
 
         // Make the move
         try {
-<span class="nc bnc" id="L157" title="All 2 branches missed.">            if (game.getMoves() % 2 == 0) {</span>
-<span class="nc" id="L158">                game.makeMove(x, y, 1);</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">            if (game.getMoves() % 2 == 0) {</span>
+<span class="nc" id="L151">                game.makeMove(x, y, 1);</span>
             } else {
-<span class="nc" id="L160">                game.makeMove(x, y, 2);</span>
+<span class="nc" id="L153">                game.makeMove(x, y, 2);</span>
             }
-<span class="nc" id="L162">        } catch (IllegalMoveException e) {</span>
-<span class="nc" id="L163">            halt(400, &quot;Out of bounds move&quot;);</span>
-<span class="nc" id="L164">        }</span>
+<span class="nc" id="L155">        } catch (IllegalMoveException e) {</span>
+<span class="nc" id="L156">            halt(400, &quot;Out of bounds move&quot;);</span>
+<span class="nc" id="L157">        }</span>
 
-<span class="nc" id="L166">        response.redirect(&quot;/&quot;);</span>
-<span class="nc" id="L167">        return null;</span>
+<span class="nc" id="L159">        response.redirect(&quot;/&quot;);</span>
+<span class="nc" id="L160">        return null;</span>
     }
 
     public static Object resetGameHandler(Request request, Response response) {
-<span class="fc" id="L171">        request.session().removeAttribute(&quot;game&quot;);</span>
-<span class="fc" id="L172">        response.redirect(&quot;/&quot;);</span>
+<span class="fc" id="L164">        request.session().removeAttribute(&quot;game&quot;);</span>
+<span class="fc" id="L165">        response.redirect(&quot;/&quot;);</span>
 
-<span class="fc" id="L174">        return null;</span>
-    }
-    
-    
-    public static Object newGameHandler(Request request, Response response) {
-<span class="nc" id="L179">        request.session().removeAttribute(&quot;game&quot;);</span>
-<span class="nc" id="L180">        request.session().removeAttribute(&quot;type&quot;);</span>
-<span class="nc" id="L181">        request.session().removeAttribute(&quot;player1&quot;);</span>
-<span class="nc" id="L182">        request.session().removeAttribute(&quot;player2&quot;);</span>
-<span class="nc" id="L183">        response.redirect(&quot;/&quot;);</span>
-     
-<span class="nc" id="L185">        return null;</span>
+<span class="fc" id="L167">        return null;</span>
     }
 
     public static void exceptionHandler(Exception e, Request request, Response response) {
-<span class="nc" id="L189">        response.body(e.getMessage());</span>
-<span class="nc" id="L190">    }</span>
-    
-    public static String getScore(Game game, Player player1, Player player2) {
-<span class="nc" id="L193">        String score = &quot;Game score:&lt;br&gt;&quot;;</span>
-<span class="nc" id="L194">        score += &quot;Total games played: &quot; + player1.addGamesPlayed() + &quot;&lt;br&gt;&quot;;</span>
-<span class="nc" id="L195">        score += player1.getName() + &quot; has won &quot; + player1.getWins() + &quot; times!&lt;br&gt;&quot;;</span>
-<span class="nc" id="L196">        score += player2.getName() + &quot; has won &quot; + player2.getWins() + &quot; times!&lt;br&gt;&quot;;</span>
-<span class="nc" id="L197">        return score;</span>
-    }
+<span class="nc" id="L171">        response.body(e.getMessage());</span>
+<span class="nc" id="L172">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

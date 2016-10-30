@@ -3,47 +3,40 @@
 public class Player {
 	
 	public String name;
-<span class="pc" id="L6">	private int wins = 0;</span>
-<span class="pc" id="L7">	private int gamesPlayed = 0;</span>
-<span class="pc" id="L8">	private boolean human = true;</span>
+<span class="fc" id="L6">	private int wins = 0;</span>
+<span class="fc" id="L7">	private int gamesPlayed = 0;</span>
+<span class="fc" id="L8">	private boolean human = true;</span>
 	
 <span class="fc" id="L10">	public Player(String n) {</span>
 <span class="fc" id="L11">		this.name = n;</span>
-<span class="fc" id="L12">	}</span>
-	
-<span class="nc" id="L14">	public Player(Player p) {</span>
-<span class="nc" id="L15">	    this.name = p.name;</span>
-<span class="nc" id="L16">	    this.wins = p.wins;</span>
-<span class="nc" id="L17">	    this.gamesPlayed = p.gamesPlayed;</span>
-<span class="nc" id="L18">	    this.human = p.human;</span>
-<span class="nc" id="L19">	}</span>
+<span class="fc" id="L12">	}	</span>
 		
 	public String getName(){
-<span class="fc" id="L22">		return this.name;</span>
+<span class="fc" id="L15">		return this.name;</span>
 	}
 	
 	public void setHuman(boolean human){
-<span class="fc" id="L26">		this.human = human;</span>
-<span class="fc" id="L27">	}</span>
+<span class="fc" id="L19">		this.human = human;</span>
+<span class="fc" id="L20">	}</span>
 	
 	public boolean isHuman() {
-<span class="fc" id="L30">		return this.human;</span>
+<span class="fc" id="L23">		return this.human;</span>
 	}
 
 	public int addWin(){
-<span class="fc" id="L34">		return (++this.wins);</span>
+<span class="fc" id="L27">		return (++this.wins);</span>
 	}
 	
 	public int addGamesPlayed(){
-<span class="fc" id="L38">		return (++this.gamesPlayed);</span>
+<span class="fc" id="L31">		return (++this.gamesPlayed);</span>
 	}
 	
 	public int getWins(){
-<span class="fc" id="L42">		return (this.wins);</span>
+<span class="fc" id="L35">		return (this.wins);</span>
 	}
 	
 	public int getGamesPlayed(){
-<span class="fc" id="L46">		return (this.gamesPlayed);</span>
+<span class="fc" id="L39">		return (this.gamesPlayed);</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
