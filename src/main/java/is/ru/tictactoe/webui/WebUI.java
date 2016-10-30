@@ -2,6 +2,7 @@ package is.ru.tictactoe.webui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import spark.ModelAndView;
 import spark.Redirect;
@@ -74,11 +75,16 @@ public class WebUI {
         switch(game.winner()) {
         case PLAYER_1:
             // Assume that player 1 is human
-            templateParams.put("message", "CONGRATULATIONS! "+ player1.getName() + "  YOU WON!");
+            templateParams.put("message", "CONGRATULATIONS! "+ player1.getName() + " YOU WON!");
             return new ModelAndView(templateParams, "game_results.ftl");
         case PLAYER_2:
-            templateParams.put("message", "CONGRATULATIONS! "+ player2.getName() + "  YOU WON!");
-            return new ModelAndView(templateParams, "game_results.ftl");
+        	if (player2.isHuman()) {
+        		templateParams.put("message", "CONGRATULATIONS! "+ player2.getName() + " YOU WON!");
+        		return new ModelAndView(templateParams, "game_results.ftl");
+        	} else {
+        		templateParams.put("message", "SORRY "+ player2.getName() + " YOU LOST!");
+        		return new ModelAndView(templateParams, "game_results.ftl");
+        	}
         case STALE_MATE:
             templateParams.put("message", "Close - but no cigar; this was a tie");
             return new ModelAndView(templateParams, "game_results.ftl");
@@ -94,10 +100,28 @@ public class WebUI {
         if (game.getMoves() % 2 == 0) {
         	playerName = player1.getName();
         } else {
-        	playerName = player2.getName();
+        	if (!player2.isHuman()) {
+        		boolean valid = false;
+        		Random ran = new Random();
+        		do {
+            		int cellNum = ran.nextInt(10);
+                    int y = cellNum / game.getBoard().boardSize();
+                    int x = cellNum % game.getBoard().boardSize();
+                	try {
+						game.makeMove(x, y, 2);
+						valid = true;
+						// Set player name for next round
+			        	playerName = player1.getName();
+					} catch (IllegalMoveException e) {
+						// do nothing - try again
+					}
+        		} while (!valid);
+        	} else {
+            	playerName = player2.getName();        		
+        	}
         }
+        
         templateParams.put("playerName", playerName);
-
         return new ModelAndView(templateParams, "board.ftl");
     }
 
